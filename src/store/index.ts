@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, Store } from 'redux';
 import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
@@ -20,28 +20,9 @@ const loggerMiddleware = createLogger({
   stateTransformer: (state: AppState) => state,
 });
 
-const store = createStore(
+const store: Store<AppState> = createStore<AppState>(
   rootReducer,
   applyMiddleware(loggerMiddleware, router)
 );
-
-function refreshNodesState() {
-
-  store.getState().nodes.nodes.forEach(async (n) => {
-    if (n.rpc) {
-      try {
-        let blockNumber: number = await n.rpc.eth.getBlockNumber();
-        let pendingBlock = await n.rpc.eth.getBlock('pending');
-        store.dispatch(nodes.actions.updateNodeStatus(n.id!, blockNumber, pendingBlock));
-      } catch (err) {
-        console.error('Error while updating node', n);
-      }
-    }
-  });
-
-  setTimeout(refreshNodesState, 5000);
-}
-
-refreshNodesState();
 
 export default store;

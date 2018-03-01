@@ -25,6 +25,8 @@ function NodeList(props: Props) {
               <div>
                 {n.url} : <BlockIcon />{n.blockNumber}, pending Txs: {pendingTxs(n)}
               </div>
+              <div>{n.clientVersion}</div>
+              <div>{n.error}</div>
             <div>
               <Link to={'/node/' + n.id} >View</Link>
             </div>

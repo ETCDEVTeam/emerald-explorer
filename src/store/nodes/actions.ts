@@ -1,4 +1,4 @@
-import { UPDATE_NODE_STATUS } from './constants';
+import { UPDATE_NODE_STATUS, UPDATE_NODE_STATUS_ERROR } from './constants';
 import { Block } from './model';
 
 export interface UpdateNodeStatus {
@@ -6,15 +6,32 @@ export interface UpdateNodeStatus {
     nodeId: string;
     blockNumber: number;
     pendingBlock: Block;
+    clientVersion: string;
 }
 
-export function updateNodeStatus(nodeId: string, blockNumber: number, pendingBlock: Block): UpdateNodeStatus {
+export interface UpdateNodeStatusError {
+  type: typeof UPDATE_NODE_STATUS_ERROR;
+  nodeId: string;
+  error: string;
+}
+
+export function updateNodeStatus(
+  nodeId: string, blockNumber: number, pendingBlock: Block, version: string): UpdateNodeStatus {
     return {
         type: UPDATE_NODE_STATUS,
         nodeId,
         blockNumber,
         pendingBlock,
+        clientVersion: version,
     };
 }
 
-export type NodesAction = UpdateNodeStatus;
+export function updateNodeStatusError(nodeId: string, error: string) {
+  return {
+    type: UPDATE_NODE_STATUS_ERROR,
+    nodeId,
+    error,
+  };
+}
+
+export type NodesAction = UpdateNodeStatus | UpdateNodeStatusError;
