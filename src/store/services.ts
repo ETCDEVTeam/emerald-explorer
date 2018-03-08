@@ -21,7 +21,7 @@ function refreshNodesState(store: Store<AppState>) {
     }
   });
 
-  setTimeout(() => refreshNodesState(store), 5000);
+  setTimeout(() => refreshNodesState(store), 15000);
 }
 
 export function run(store: Store<AppState>) {
