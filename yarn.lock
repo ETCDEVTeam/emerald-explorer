@@ -1717,8 +1717,8 @@ elliptic@^6.0.0, elliptic@^6.2.3:
     minimalistic-crypto-utils "^1.0.0"
 
 "emerald-js-ui@https://github.com/gagarin55/emerald-js-ui.git#typings":
-  version "0.0.10"
-  resolved "https://github.com/gagarin55/emerald-js-ui.git#e1e287881d84eec0e85a03f9c6127f095761ab0d"
+  version "0.0.14"
+  resolved "https://github.com/gagarin55/emerald-js-ui.git#7f29f447b83e87c551c054468c80980116601c5a"
   dependencies:
     classnames "^2.2.5"
     copy-to-clipboard "^3.0.8"
@@ -1730,7 +1730,7 @@ elliptic@^6.0.0, elliptic@^6.2.3:
 
 "emerald-js@https://github.com/gagarin55/emerald-js.git#ethrpc-api-web3":
   version "0.1.0"
-  resolved "https://github.com/gagarin55/emerald-js.git#a6b901f2fa34d373e0bbf284fedf9adcffd20bdf"
+  resolved "https://github.com/gagarin55/emerald-js.git#379e2686ba2decb20fb1a48c6b82073ff31c5de7"
   dependencies:
     assert "^1.4.1"
     bignumber.js "^4.0.4"

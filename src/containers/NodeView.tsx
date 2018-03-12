@@ -12,14 +12,16 @@ interface Props {
 }
 
 function NodeView(props: Props) {
+  const to = props.node.blockNumber!;
+  const from = to - 15;
   return (
-  <div>
-    <div><Link to="/"><BackIcon />Dashboard</Link></div>
-    <div>Node ID: {props.node.id}</div>
     <div>
-      <BlockList node={props.node} from={10} to={20} />
-    </div>
-  </div>);
+      <div><Link to="/"><BackIcon />Dashboard</Link></div>
+      <div>Node ID: {props.node.id}</div>
+      <div>
+        <BlockList node={props.node} from={from} to={to} />
+      </div>
+    </div>);
 }
 
 interface OwnProps {
@@ -27,7 +29,7 @@ interface OwnProps {
 }
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-    node: state.nodes.nodes.find(n => n.id === ownProps.match.params.id)
+  node: state.nodes.nodes.find(n => n.id === ownProps.match.params.id)
 });
 
 export default connect(mapStateToProps)(NodeView);
