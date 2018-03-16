@@ -3,8 +3,8 @@ import { match, RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
-import { BlockWithTxData } from 'emerald-js';
-import BlockView from '../components/BlockView';
+import { Transaction } from 'emerald-js';
+import TxView from '../components/TxView';
 
 interface Props extends RouteComponentProps<void> {
   node: Node;
@@ -12,32 +12,32 @@ interface Props extends RouteComponentProps<void> {
 }
 
 interface State {
-  block: BlockWithTxData | null;
+  tx: Transaction | null;
 }
 
-class BlockViewContainer extends React.Component<Props, State> {
+class TransactionContainer extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
     this.state = {
-      block: null,
+      tx: null,
     };
   }
 
   async componentWillMount() {
     const { node, hash } = this.props;
-    const block = await  node.rpc!.eth.getBlock(hash, true);
+    const tx = await node.rpc!.eth.getTransaction(hash);
     this.setState({
-      block: block
+      tx: tx
     });
   }
 
   render() {
-    const { block } = this.state;
+    const { tx } = this.state;
+    const baseUrl = `/node/${this.props.node.id!}`;
     return (
-      <div>
-        <BlockView block={block!} />
-      </div>); 
+        <TxView tx={tx!} baseUrl={baseUrl}/>
+    ); 
   }
 }
 
@@ -50,4 +50,4 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   hash: ownProps.match.params.hash,
 });
 
-export default (connect(mapStateToProps)(BlockViewContainer));
+export default (connect(mapStateToProps)(TransactionContainer));

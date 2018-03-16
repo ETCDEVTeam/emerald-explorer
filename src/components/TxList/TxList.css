@@ -1,0 +1,9 @@
+.tableRow {
+  display: flex;
+  align-items: center;
+}
+
+.tableCell {
+  margin-left: 2px;
+  margin-right: 2px;
+}

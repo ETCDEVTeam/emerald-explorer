@@ -1730,7 +1730,7 @@ elliptic@^6.0.0, elliptic@^6.2.3:
 
 "emerald-js@https://github.com/gagarin55/emerald-js.git#ethrpc-api-web3":
   version "0.1.0"
-  resolved "https://github.com/gagarin55/emerald-js.git#379e2686ba2decb20fb1a48c6b82073ff31c5de7"
+  resolved "https://github.com/gagarin55/emerald-js.git#a0dbc995fdd8178f2661359c43828795a34415b4"
   dependencies:
     assert "^1.4.1"
     bignumber.js "^4.0.4"
