@@ -18,6 +18,11 @@ const initialState = {
       id: '2',
       url: 'https://mewapi.epool.io',
       rpc: new EthRpc(new JsonRpc(new HttpTransport('https://mewapi.epool.io')))
+    },
+    {
+      id: '3',
+      url: 'http://localhost:8545',
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('http://localhost:8545')))
     }
   ]
 };

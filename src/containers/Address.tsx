@@ -14,6 +14,7 @@ interface Props extends RouteComponentProps<void> {
 interface State {
   balance: BigNumber | null;
   txCount: number | null;
+  code: string;
 }
 
 class Address extends React.Component<Props, State> {
@@ -23,6 +24,7 @@ class Address extends React.Component<Props, State> {
     this.state = {
       balance: null,
       txCount: null,
+      code: '',
     };
   }
 
@@ -30,15 +32,19 @@ class Address extends React.Component<Props, State> {
     const { node, address } = this.props;
     const txCount = await node.rpc!.eth.getTransactionCount(address);
     const balance = await node.rpc!.eth.getBalance(address);
+    const code = await node.rpc!.eth.getCode(address);
+
     this.setState({
       balance: balance,
       txCount: txCount,
+      code: code,
     });
   }
 
   render() {
     const { address } = this.props;
-    const { balance, txCount } = this.state;
+    const { balance, txCount, code } = this.state;
+    console.error(this.state);
     const baseUrl = `/node/${this.props.node.id!}`;
     return (
         <AddressView
@@ -46,6 +52,7 @@ class Address extends React.Component<Props, State> {
           txCount={txCount!}
           balance={balance!}
           baseUrl={baseUrl}
+          code={code}
         />
     ); 
   }

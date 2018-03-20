@@ -3,7 +3,7 @@ import { match, RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
-import { Transaction } from 'emerald-js';
+import { Transaction, TransactionReceipt } from 'emerald-js';
 import TxView from '../components/TxView';
 
 interface Props extends RouteComponentProps<void> {
@@ -13,6 +13,7 @@ interface Props extends RouteComponentProps<void> {
 
 interface State {
   tx: Transaction | null;
+  receipt: TransactionReceipt | null;
 }
 
 class TransactionContainer extends React.Component<Props, State> {
@@ -21,22 +22,25 @@ class TransactionContainer extends React.Component<Props, State> {
     super(props);
     this.state = {
       tx: null,
+      receipt: null,
     };
   }
 
   async componentWillMount() {
     const { node, hash } = this.props;
     const tx = await node.rpc!.eth.getTransaction(hash);
+    const receipt = await node.rpc!.eth.getTransactionReceipt(hash);
     this.setState({
-      tx: tx
+      tx: tx,
+      receipt: receipt,
     });
   }
 
   render() {
-    const { tx } = this.state;
+    const { tx, receipt } = this.state;
     const baseUrl = `/node/${this.props.node.id!}`;
     return (
-        <TxView tx={tx!} baseUrl={baseUrl}/>
+        <TxView tx={tx!} receipt={receipt} baseUrl={baseUrl}/>
     ); 
   }
 }
