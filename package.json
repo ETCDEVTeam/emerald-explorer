@@ -1,6 +1,5 @@
 {
   "name": "emerald-browser",
-  "homepage": "https://gagarin55.github.io/emerald-browser/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
