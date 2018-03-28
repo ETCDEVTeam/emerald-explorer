@@ -11,13 +11,13 @@ const initialState: State = {
   nodes: [
     {
       id: '1',
-      url: 'http://web3.gastracker.io',
-      rpc: new EthRpc(new JsonRpc(new HttpTransport('http://web3.gastracker.io')))
+      url: 'https://web3.gastracker.io',
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://web3.gastracker.io')))
     },
     {
       id: '3',
-      url: 'http://localhost:8545',
-      rpc: new EthRpc(new JsonRpc(new HttpTransport('http://localhost:8545')))
+      url: 'https://localhost:8545',
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://localhost:8545')))
     }
   ]
 };
