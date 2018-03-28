@@ -23,9 +23,10 @@ function NodeList(props: Props) {
       {props.nodes.map(n => (
         <Card key={n.id}>
           <div>
-            {n.url} : <BlockIcon />{n.blockNumber}, pending Txs: {pendingTxs(n)}
+            {n.url} : <BlockIcon />{n.blockNumber}, pending Txs: {pendingTxs(n) || '...'}
           </div>
           <div>{n.clientVersion}</div>
+          <div>network id: {n.networkId}</div>
           <div>{n.error && <Warning><WarningText>{n.error}</WarningText></Warning>}</div>
           <div>
             <Link to={'/node/' + n.id} >View</Link>

@@ -7,6 +7,7 @@ export interface UpdateNodeStatus {
     blockNumber: number;
     pendingBlock: Block;
     clientVersion: string;
+    networkId: string;
 }
 
 export interface UpdateNodeStatusError {
@@ -16,13 +17,14 @@ export interface UpdateNodeStatusError {
 }
 
 export function updateNodeStatus(
-  nodeId: string, blockNumber: number, pendingBlock: Block, version: string): UpdateNodeStatus {
+  nodeId: string, blockNumber: number, pendingBlock: Block, version: string, networkId: string): UpdateNodeStatus {
     return {
         type: UPDATE_NODE_STATUS,
         nodeId,
         blockNumber,
         pendingBlock,
         clientVersion: version,
+        networkId,
     };
 }
 

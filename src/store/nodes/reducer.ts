@@ -7,17 +7,12 @@ export interface State {
   nodes: Node[];
 }
 
-const initialState = {
+const initialState: State = {
   nodes: [
     {
       id: '1',
       url: 'http://web3.gastracker.io',
       rpc: new EthRpc(new JsonRpc(new HttpTransport('http://web3.gastracker.io')))
-    },
-    {
-      id: '2',
-      url: 'https://mewapi.epool.io',
-      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://mewapi.epool.io')))
     },
     {
       id: '3',
@@ -37,6 +32,7 @@ function onUpdateNodeStatus(state: State, action: UpdateNodeStatus): State {
           blockNumber: action.blockNumber,
           pendingBlock: action.pendingBlock,
           clientVersion: action.clientVersion,
+          networkId: action.networkId,
         } : node
     );
     return { ...state, nodes };

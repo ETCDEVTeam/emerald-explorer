@@ -1730,7 +1730,7 @@ elliptic@^6.0.0, elliptic@^6.2.3:
 
 "emerald-js@https://github.com/gagarin55/emerald-js.git#ethrpc-api-web3":
   version "0.1.0"
-  resolved "https://github.com/gagarin55/emerald-js.git#ee6179a957b33a7ffeaf68b222e042e412ae9e64"
+  resolved "https://github.com/gagarin55/emerald-js.git#9a27a8440d55550c300ebba31013165f7332d86e"
   dependencies:
     assert "^1.4.1"
     bignumber.js "^4.0.4"
@@ -2839,6 +2839,10 @@ icss-utils@^2.1.0:
 ieee754@^1.1.4:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
+
+immutable@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
 
 import-lazy@^2.1.0:
   version "2.1.0"

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { BlockWithTxData } from 'emerald-js';
 import TxList from '../TxList';
 
@@ -14,6 +15,8 @@ function BlockView(props: Props) {
     }
 
     return (
+      <React.Fragment>
+      <div><Link to={`${baseUrl}`}>Node</Link></div>
       <div>
         <table>
           <tr><td>Hash</td><td>{block.hash}</td></tr>
@@ -25,6 +28,7 @@ function BlockView(props: Props) {
         </table>
         <TxList transactions={block.transactions} baseUrl={baseUrl}/>
       </div>
+      </React.Fragment>
     );
 }
 

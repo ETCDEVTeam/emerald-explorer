@@ -10,9 +10,11 @@ function refreshNodesState(store: Store<AppState>) {
       try {
         let blockNumber = await n.rpc.eth.getBlockNumber();
         let pendingBlock = await n.rpc.eth.getBlock('pending');
-        const version = await n.rpc.web3.clientVersion();
+        const clientVersion = await n.rpc.web3.clientVersion();
+        const networkId = await n.rpc.net.version();
+
         store.dispatch(nodes.actions.updateNodeStatus(
-          n.id!, blockNumber, pendingBlock, version));
+          n.id!, blockNumber, pendingBlock, clientVersion, networkId));
       } catch (err) {
         store.dispatch(nodes.actions.updateNodeStatusError(
           n.id!, err.message));
