@@ -18,6 +18,7 @@ function ContractView(props: Props) {
       />
       <CardText>
         <table>
+          <tbody>
           <tr>
             <td>Version: </td>
             <td>{contract.version}</td>
@@ -30,6 +31,7 @@ function ContractView(props: Props) {
             <td>Creation Transaction: </td>
             <td>{contract.txHash}</td>
           </tr>
+          </tbody>
         </table>
         <div>
           <b>ABI / JSON Interface</b>

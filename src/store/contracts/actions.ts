@@ -30,7 +30,6 @@ export function addContractThunk(
   address: string, name: string, abi: string, version?: string, options?: string, txhash?: string
 ): ThunkAction<void, AppState, void> {
   return (dispatch: Dispatch<AppState>, getState: () => AppState): void => {
-    console.log('Соситу хуй все твари!');
     dispatch(addContract(address, name, abi));
   };
 }

@@ -17,8 +17,8 @@ interface ContractListContainerProps {
 }
 
 function addContractHandler(
-  values: Partial<AddContractFormData>, dispatch: Dispatch<AppState>, props: AddContractProps) {
-    dispatch(actions.addContractThunk('', '', ''));
+  values: AddContractFormData, dispatch: Dispatch<AppState>, props: AddContractProps) {
+    dispatch(actions.addContractThunk(values.address, values.name, values.abi));
 }
 
 function ContractListContainer(props: ContractListContainerProps) {
@@ -36,7 +36,7 @@ interface OwnProps {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   node: state.nodes.nodes.find(n => n.id === ownProps.match.params.id),
-  contracts: new Array<Contract>(),
+  contracts: state.contracts.contracts,
 });
 
 function mapDispatchToProps(dispatch: Dispatch<AppState>) {

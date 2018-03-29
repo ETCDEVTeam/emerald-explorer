@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import LibraryBooks from 'material-ui/svg-icons/av/library-books';
@@ -15,7 +15,7 @@ interface Props {
   contracts: Array<Contract>;
 }
 
-function ContractItem(props: { contract: Contract }) {
+function ContractItem(props: { contract: Contract, baseUrl: string }) {
   return (
     <TableRow selectable={false}>
       <TableRowColumn>
@@ -24,16 +24,16 @@ function ContractItem(props: { contract: Contract }) {
         </span>
       </TableRowColumn>
       <TableRowColumn>
-        <span>
+        <Link to={`${props.baseUrl}/contracts/${props.contract.address}`}>
           {props.contract.address}
-        </span>
+        </Link>
       </TableRowColumn>
     </TableRow>
   );
 }
 
 function ContractList(props: Props) {
-
+  const { node, contracts } = props;
   const table = (
     <Table selectable={false}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -43,7 +43,8 @@ function ContractList(props: Props) {
         </TableRow>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
-        {props.contracts.map((contract) => <ContractItem key={contract.address} contract={contract} />)}
+        {contracts.map((contract) => 
+          <ContractItem key={contract.address} contract={contract} baseUrl={`/node/${node.id}`} />)}
       </TableBody>
     </Table>);
 
