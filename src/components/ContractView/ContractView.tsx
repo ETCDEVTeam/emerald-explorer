@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, CardTitle, CardHeader, CardText } from 'material-ui/Card';
 import { FlatButton, FontIcon } from 'material-ui';
-// import InteractContract from './interactForm';
+import InteractContract from '../ContractInteract';
 import { Contract } from '../../store/contracts/model';
 
 export interface Props {
@@ -47,7 +47,7 @@ function ContractView(props: Props) {
         />
       </CardTitle>
       <CardText expandable={true}>
-        {/* <InteractContract contract={contract} /> */}
+        <InteractContract contract={contract} />
       </CardText>
     </Card>
   );

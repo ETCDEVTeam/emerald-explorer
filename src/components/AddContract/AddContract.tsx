@@ -3,7 +3,7 @@ import { InjectedFormProps, reduxForm, Field } from 'redux-form';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { Add as AddIcon } from 'emerald-js-ui/lib/icons2';
-import { required, address, isJson } from './validators';
+import { required, address, isJson } from '../validators';
 
 export interface AddContractProps {
 

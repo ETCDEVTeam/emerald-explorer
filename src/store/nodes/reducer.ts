@@ -15,6 +15,11 @@ const initialState: State = {
       rpc: new EthRpc(new JsonRpc(new HttpTransport('https://web3.gastracker.io')))
     },
     {
+      id: '2',
+      url: 'https://web3.gastracker.io/morden',
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://web3.gastracker.io/morden')))
+    },
+    {
       id: '3',
       url: 'http://localhost:8545',
       rpc: new EthRpc(new JsonRpc(new HttpTransport('http://localhost:8545')))
