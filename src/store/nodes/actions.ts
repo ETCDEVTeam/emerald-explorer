@@ -28,7 +28,7 @@ export function updateNodeStatus(
     };
 }
 
-export function updateNodeStatusError(nodeId: string, error: string) {
+export function updateNodeStatusError(nodeId: string, error: string): UpdateNodeStatusError {
   return {
     type: UPDATE_NODE_STATUS_ERROR,
     nodeId,

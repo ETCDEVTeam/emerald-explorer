@@ -17,6 +17,7 @@ function NodeView(props: Props) {
   return (
     <div>
       <div><Link to="/"><BackIcon />Dashboard</Link></div>
+      <div><Link to={`/node/${props.node.id}/contracts`}>Contracts</Link></div>
       <div>Node ID: {props.node.id}</div>
       <div>
         <BlockList node={props.node} from={from} to={to} />

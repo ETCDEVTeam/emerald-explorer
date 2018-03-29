@@ -16,8 +16,8 @@ const initialState: State = {
     },
     {
       id: '3',
-      url: 'https://localhost:8545',
-      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://localhost:8545')))
+      url: 'http://localhost:8545',
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('http://localhost:8545')))
     }
   ]
 };

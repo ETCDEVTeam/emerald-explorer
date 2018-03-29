@@ -1,10 +1,7 @@
 import { Record } from 'immutable';
-import { ContractsAction } from './actions';
-
-type Contract = {
-  address: string;
-  txHash: string;
-};
+import { ContractsAction, AddContract } from './actions';
+import { Contract } from './model';
+import { ADD_CONTRACT } from './constants';
 
 type StateParams = {
   contracts: Array<Contract>;
@@ -63,18 +60,25 @@ const initialState = new State();
 //   }
 // }
 
-// function onAddContract(state: State, action) {
-//   if (action.type === 'CONTRACT/ADD_CONTRACT') {
-//     return addContract(state,
-//       action.address,
-//       action.name,
-//       action.abi,
-//       action.version,
-//       action.options,
-//       action.txhash);
-//   }
-//   return state;
-// }
+function onAddContract(state: State, action: AddContract): State {
+  if (action.type === ADD_CONTRACT) {
+    // return addContract(state,
+    //   action.address,
+    //   action.name,
+    //   action.abi,
+    //   action.version,
+    //   action.options,
+    //   action.txhash);
+    const newContract: Contract = {
+      address: action.address,
+      name: action.name,
+      abi: action.abi,
+    };
+    state.contracts.push(newContract);
+    return state.set('contracts', state.contracts) as State;
+  }
+  return state;
+}
 
 // function updateContract(state: State, txhash: string, f) {
 //   return state.update('contracts', (contracts) => {
@@ -95,11 +99,15 @@ const initialState = new State();
 //   return state;
 // }
 
-export default function reduce(state: State, action: ContractsAction) {
+export default function reduce(state: State, action: ContractsAction): State {
   state = state || initialState;
   // state = onLoading(state, action);
   // state = onSetContractList(state, action);
-  // state = onAddContract(state, action);
+  switch (action.type) {
+    case ADD_CONTRACT:
+      return onAddContract(state, action);
+    default:
+      return state;
+  }
   // state = onUpdateContract(state, action);
-  return state;
 }

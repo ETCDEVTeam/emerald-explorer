@@ -24,9 +24,11 @@ function TxList(props: TxListProps) {
   return (
     <table>
       <thead>
+        <tr>
         <td>Hash</td>
         <td>From</td>
         <td>To</td>
+        </tr>
       </thead>
       <tbody>
         {props.transactions.map(tx => <TxListItem key={tx.hash} tx={tx} baseUrl={props.baseUrl}/>)}
