@@ -72,7 +72,7 @@ function onAddContract(state: State, action: AddContract): State {
     const newContract: Contract = {
       address: action.address,
       name: action.name,
-      abi: action.abi,
+      abi: JSON.parse(action.abi),
     };
     state.contracts.push(newContract);
     return state.set('contracts', state.contracts) as State;

@@ -15,7 +15,7 @@ interface ContractContainerProps {
 function ContractContainer(props: ContractContainerProps) {
   if (props.contract) {
     return (
-      <ContractView contract={props.contract} />
+      <ContractView contract={props.contract} node={props.node} />
     );
   }
   return (<Redirect to={`/node/${props.node.id}/contracts`}/>);

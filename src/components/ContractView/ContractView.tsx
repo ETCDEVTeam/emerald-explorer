@@ -3,13 +3,15 @@ import { Card, CardTitle, CardHeader, CardText } from 'material-ui/Card';
 import { FlatButton, FontIcon } from 'material-ui';
 import InteractContract from '../ContractInteract';
 import { Contract } from '../../store/contracts/model';
+import { Node } from '../../store/nodes/model';
 
 export interface Props {
   contract: Contract;
+  node: Node;
 }
 
 function ContractView(props: Props) {
-  const { contract } = props;
+  const { contract, node } = props;
   return (
     <Card>
       <CardHeader
@@ -47,7 +49,7 @@ function ContractView(props: Props) {
         />
       </CardTitle>
       <CardText expandable={true}>
-        <InteractContract contract={contract} />
+        <InteractContract contract={contract} node={node} />
       </CardText>
     </Card>
   );

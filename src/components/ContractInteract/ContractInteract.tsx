@@ -1,22 +1,38 @@
 import * as React from 'react';
-import { InjectedFormProps, reduxForm, Field, WrappedFieldProps } from 'redux-form';
-import { SelectFieldProps } from 'material-ui';
-import { SelectField } from 'redux-form-material-ui';
+import { InjectedFormProps, reduxForm, Field, WrappedFieldProps, EventWithDataHandler } from 'redux-form';
+import { SelectFieldProps, TextFieldProps } from 'material-ui';
+import { SelectField, TextField } from 'redux-form-material-ui';
 import { Card, CardActions, CardText, FlatButton, MenuItem, FontIcon } from 'material-ui';
-import { Contract } from '../../store/contracts/model';
+import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../store/contracts/model';
+import { Node } from '../../store/nodes/model';
 // import { required, number } from '../validators';
+import { callContract } from './utils';
+
+interface AbiFunctionInputValue {
+  value?: string;
+}
+
+interface AbiFunctionOutputValue {
+  value?: string;
+}
+
+type Input = AbiFunctionInput & AbiFunctionInputValue;
+
+type Output = AbiFunctionOutput & AbiFunctionOutputValue;
 
 interface State {
-  function?: string;
-  constant: boolean;
-  payable: boolean;
+  function?: AbiFunction;
+  inputs: Array<Input>;
+  outputs: Array<Output>;
 }
 
 interface Props {
   contract: Contract;
+  node: Node;
 }
 
 export interface FormData {
+  selectedFunction: AbiFunction;
 }
 
 export type ContractInteractProps = InjectedFormProps<FormData, Props> & Props;
@@ -25,78 +41,76 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
   constructor(props: ContractInteractProps) {
     super(props);
     this.state = {
-      // inputs: [],
-      // outputs: [],
       function: undefined,
-      constant: true,
-      payable: false,
+      inputs: [],
+      outputs: [],
     };
   }
 
-  changeInputs(/*event, value, prev*/) {
-    // let inputs;
-    // let outputs;
-    // // if constant, read directly
-    // if (value.get('inputs').size > 0) {
-    //   inputs = value.get('inputs').map((input) => Immutable.fromJS(input));
-    // } else {
-    //   inputs = [];
-    // }
-    // if (value.get('constant') && value.get('outputs').size > 0) {
-    //   outputs = value.get('outputs').map((output) => Immutable.fromJS(output));
-    // } else {
-    //   outputs = [];
-    // }
-    // this.setState({
-    //   inputs,
-    //   outputs,
-    //   function: value,
-    //   constant: value.get('constant'),
-    //   payable: value.get('payable'),
-    // });
-  }
+  changeInputs: EventWithDataHandler<React.ChangeEvent<{}>> =
+    (event?: React.ChangeEvent<{}>, value?: AbiFunction, previousValue?: string) => {
+      if (!value) {
+        return;
+      }
 
-  // updateInputVals(event, value, prev) {
-  //   const idx = this.state.inputs.findKey((input) => input.get('name') === event.target.name);
-  //   if (idx >= 0) {
-  //     this.setState({
-  //       inputs: this.state.inputs.update(idx, (input) => input.set('value', value)),
-  //     });
-  //   }
-  // }
+      let inputs: Array<Input>;
+      let outputs: Array<Output>;
+      // if constant, read directly
+      if (value.inputs.length > 0) {
+        inputs = value.inputs;
+      } else {
+        inputs = [];
+      }
+      if (value.constant && value.outputs.length > 0) {
+        outputs = value.outputs;
+      } else {
+        outputs = [];
+      }
+      this.setState({
+        inputs,
+        outputs,
+        function: value,
+      });
+    }
+
+  updateInputVals: EventWithDataHandler<React.ChangeEvent<{}>> =
+    (event?: React.ChangeEvent<{ name: string }>, value?: AbiFunction, previousValue?: string) => {
+      const idx = this.state.inputs.findIndex((input) => input.name === event!.target.name);
+      if (idx >= 0) {
+        // this.setState({
+        //   inputs: this.state.inputs.update(idx, (input) => input.set('value', value)),
+        // });
+      }
+    }
 
   /*
       after callContract:
         Expect return value of executed contract
         Display decoded output params
     */
-  // callContract() {
-  //   const args = this.state.inputs.reduce((res, input) => {
-  //     res[input.get('name')] = input.get('value');
-  //     return res;
-  //   }, {});
+  onCallContract = () => {
+    const args = this.state.inputs.reduce(
+      (res, input) => {
+        res[input.name] = input.value;
+        return res;
+      },
+      {});
 
-  //   const address = this.props.contract.address;
+    const address = this.props.contract.address;
 
-  //   if (this.state.constant) {
-  //     return new Promise((resolve, reject) => {
-  //       this.props.dispatch(callContract(address,
-  //         this.state.function,
-  //         args
-  //       )).then((result) => {
-  //         if (result.size > 0) {
-  //           const cleanDecode = result.map((res) => Immutable.fromJS(res));
-  //           this.setState({ outputs: cleanDecode });
-  //           resolve();
-  //         }
-  //       });
-  //     });
-  //   }
-  // }
+    callContract(this.props.node.rpc!, address, this.state.function!, args)
+      .then((result) => {
+        if (result.length > 0) {
+          this.setState({ outputs: result as Output[] });
+        }
+      });
+  }
 
   render() {
-    const { contract, reset/*, handleSubmit*/ } = this.props;
-    const functions = JSON.parse(contract.abi!);
+    const { contract, reset, handleSubmit } = this.props;
+    const functions = contract.abi!;
+    const func = this.state.function;
+    const { outputs, inputs } = this.state;
 
     return (
       <Card>
@@ -104,42 +118,42 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
           <div>
             <div>
               <Field
-                name="function"
+                name="selectedFunction"
                 component={SelectField as React.ComponentType<WrappedFieldProps & SelectFieldProps>}
                 onChange={this.changeInputs}
               >
-                {functions.map((func: {name: string}) =>
+                {functions.map((f: { name: string }) =>
                   <MenuItem
-                    key={func.name}
-                    value={func}
-                    label={func.name}
-                    primaryText={func.name}
+                    key={f.name}
+                    value={f}
+                    label={f.name}
+                    primaryText={f.name}
                   />
                 )}
               </Field>
             </div>
           </div>
-          {/* <div>
-            {this.state.inputs && this.state.inputs.map((input) =>
-              <Col xs={6} key={`${this.state.function.get('name')} ${input.get('name')} IN`}>
+          <div>
+            {func && inputs && inputs.map((input) =>
+              <div key={`${func.name} ${input.name} IN`}>
                 <Field
-                  name={input.get('name')}
-                  floatingLabelText={`${input.get('name')} (${input.get('type')})`}
-                  hintText={input.get('type')}
-                  component={TextField}
+                  name={input.name}
+                  floatingLabelText={`${input.name} (${input.type})`}
+                  hintText={input.type}
+                  component={TextField as React.ComponentType<WrappedFieldProps & TextFieldProps>}
                   onChange={this.updateInputVals}
                 />
-              </Col>
+              </div>
             )}
-            {this.state.outputs && this.state.outputs.map((output) =>
-              <Col xs={6} key={`${this.state.function.get('name')} ${output.get('name')} OUT`}>
+            {func && outputs && outputs.map((output) =>
+              <div key={`${func.name} ${output.name} OUT`}>
                 <div >
-                  <b>{`${output.get('name')}`}</b> {`(${output.get('type')})`}<br />
-                  <div>{(output.get('value') || ' ').toString()}</div>
+                  <b>{`${output.name}`}</b> {`(${output.type})`}<br />
+                  <div>{(output.value || ' ').toString()}</div>
                 </div>
-              </Col>
+              </div>
             )}
-          </div>
+          </div>{/*
           {!this.state.constant &&
             <div>
               <div>
@@ -165,45 +179,45 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
                   validate={required} />
               </div>
             </div>}
-          {!this.state.constant &&
+          {!this.state.constant && 
             <div>
-              {this.state.payable && <Col xs={8}>
+              {this.state.payable && 
+              <div>
                 <Field 
                   name="value"
                   floatingLabelText="Value to Send"
                   hintText="0"
                   component={TextField} 
                 />
-              </Col>}
-              <Col xs={8}>
+              </div>}
+              <div>
                 <Field
                   name="gas"
                   floatingLabelText="Gas Amount"
                   component={TextField}
                   validate={[required, number]} />
-              </Col>
-            </div>} */}
+              </div>
+            </div>}*/}
         </CardText>
         <CardActions>
-          {this.state.constant &&
+          {func && func.constant &&
             <FlatButton
               label="Submit"
               disabled={this.props.pristine || this.props.submitting || this.props.invalid}
-              // onClick={this.callContract}
-              icon={<FontIcon className="fa fa-check" />} 
+              onClick={this.onCallContract}
+              icon={<FontIcon className="fa fa-check" />}
             />}
-          {!this.state.constant && 
-          
-          <FlatButton
-            label="Submit"
-            disabled={this.props.pristine || this.props.submitting || this.props.invalid}
-            onClick={this.props.handleSubmit}
-            icon={<FontIcon className="fa fa-check" />} 
-          />}
+          {!(func && func.constant) &&
+            <FlatButton
+              label="Submit"
+              disabled={this.props.pristine || this.props.submitting || this.props.invalid}
+              onClick={handleSubmit}
+              icon={<FontIcon className="fa fa-check" />}
+            />}
           <FlatButton
             label="Clear"
             onClick={reset}
-            icon={<FontIcon className="fa fa-ban" />} 
+            icon={<FontIcon className="fa fa-ban" />}
           />
         </CardActions>
       </Card>
