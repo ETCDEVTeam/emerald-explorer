@@ -6,7 +6,7 @@ import { Add as AddIcon } from 'emerald-js-ui/lib/icons2';
 import { required, address, isJson } from '../validators';
 
 export interface AddContractProps {
-
+  onDeployNewContract: () => void;
 }
 
 export interface AddContractFormData {
@@ -15,12 +15,13 @@ export interface AddContractFormData {
   abi: string;
 }
 
-export type AddContractFormProps = InjectedFormProps<AddContractFormData, AddContractProps>;
+export type AddContractFormProps = InjectedFormProps<AddContractFormData, AddContractProps> & AddContractProps;
 
 class AddContract extends React.PureComponent<AddContractFormProps> {
 
   render() {
     const { handleSubmit, submitting, pristine, invalid, reset } = this.props;
+    const { onDeployNewContract } = this.props;
 
     return (
       <Card>
@@ -69,6 +70,7 @@ class AddContract extends React.PureComponent<AddContractFormProps> {
           <FlatButton
             label="Deploy New Contract"
             icon={<AddIcon />}
+            onClick={onDeployNewContract}
           />
         </CardActions>
       </Card>

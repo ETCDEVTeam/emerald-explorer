@@ -5,7 +5,7 @@ import { SelectField, TextField } from 'redux-form-material-ui';
 import { Card, CardActions, CardText, FlatButton, MenuItem, FontIcon } from 'material-ui';
 import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../store/contracts/model';
 import { Node } from '../../store/nodes/model';
-// import { required, number } from '../validators';
+import { required, number } from '../validators';
 import { callContract } from './utils';
 
 interface AbiFunctionInputValue {
@@ -33,6 +33,8 @@ interface Props {
 
 export interface FormData {
   selectedFunction: AbiFunction;
+  value?: number;
+  gas?: number;
 }
 
 export type ContractInteractProps = InjectedFormProps<FormData, Props> & Props;
@@ -107,7 +109,7 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
   }
 
   render() {
-    const { contract, reset, handleSubmit } = this.props;
+    const { contract, reset, handleSubmit, pristine } = this.props;
     const functions = contract.abi!;
     const func = this.state.function;
     const { outputs, inputs } = this.state;
@@ -178,39 +180,41 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
                   component={TextField}
                   validate={required} />
               </div>
-            </div>}
-          {!this.state.constant && 
+            </div>}*/}
+          {func && !func.constant && 
             <div>
-              {this.state.payable && 
+              {func!.payable && 
               <div>
                 <Field 
                   name="value"
                   floatingLabelText="Value to Send"
                   hintText="0"
-                  component={TextField} 
+                  component={TextField as React.ComponentType<WrappedFieldProps & TextFieldProps>} 
                 />
               </div>}
               <div>
                 <Field
                   name="gas"
                   floatingLabelText="Gas Amount"
-                  component={TextField}
-                  validate={[required, number]} />
+                  component={TextField as React.ComponentType<WrappedFieldProps & TextFieldProps>}
+                  validate={[required, number]} 
+                />
               </div>
-            </div>}*/}
+            </div>
+          }
         </CardText>
         <CardActions>
           {func && func.constant &&
             <FlatButton
               label="Submit"
-              disabled={this.props.pristine || this.props.submitting || this.props.invalid}
+              disabled={pristine || this.props.submitting || this.props.invalid}
               onClick={this.onCallContract}
               icon={<FontIcon className="fa fa-check" />}
             />}
           {!(func && func.constant) &&
             <FlatButton
               label="Submit"
-              disabled={this.props.pristine || this.props.submitting || this.props.invalid}
+              disabled={pristine || this.props.submitting || this.props.invalid}
               onClick={handleSubmit}
               icon={<FontIcon className="fa fa-check" />}
             />}

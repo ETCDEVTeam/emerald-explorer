@@ -7,9 +7,6 @@ import Avatar from 'material-ui/Avatar';
 import { Node } from '../../store/nodes/model';
 import { Contract } from '../../store/contracts/model';
 
-// import { Block as BlockIcon } from 'emerald-js-ui/lib/icons2';
-// import { Card, Warning, WarningText } from 'emerald-js-ui';
-
 interface Props {
   node: Node;
   contracts: Array<Contract>;

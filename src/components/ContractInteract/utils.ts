@@ -10,5 +10,6 @@ export async function callContract(
   rpc: EthRpc, contractAddress: string, func: AbiFunction, inputs: {}): Promise<OutputValue[]> {
   const data = contracts.functionToData(func, inputs as InputValues);
   const result = await rpc.eth.call({ to: contractAddress, data });
+  console.log('eth_call result: ' + JSON.stringify(result));
   return contracts.dataToParams(func, result);
 }

@@ -9,6 +9,7 @@ import AddContract from '../components/AddContract';
 import { FormSubmitHandler } from 'redux-form';
 import { AddContractFormData, AddContractProps } from '../components/AddContract/AddContract';
 import * as actions from '../store/contracts/actions';
+import { history } from '../store';
 
 interface ContractListContainerProps {
   node: Node;
@@ -21,13 +22,26 @@ function addContractHandler(
     dispatch(actions.addContractThunk(values.address, values.name, values.abi));
 }
 
-function ContractListContainer(props: ContractListContainerProps) {
-  return (
-    <React.Fragment>
-      <ContractList node={props.node} contracts={props.contracts} />
-      <AddContract onSubmit={addContractHandler} />
-    </React.Fragment>
-  );
+class ContractListContainer extends React.Component<ContractListContainerProps> {
+  
+  deployNewContractHandler = () => {
+    const { node } = this.props;
+    console.log('Deploy new contract handler called');
+    history.push(`/node/${node.id}/contracts/deploy`);
+  }
+
+  render() {
+    const { node, contracts } = this.props;
+    return (
+      <React.Fragment>
+        <ContractList node={node} contracts={contracts} />
+        <AddContract
+          onSubmit={addContractHandler}
+          onDeployNewContract={this.deployNewContractHandler}
+        />
+      </React.Fragment>
+    );
+  }
 }
 
 interface OwnProps {

@@ -11,6 +11,7 @@ import Address from './containers/Address';
 import Transaction from './containers/Transaction';
 import ContractList from './containers/ContractList';
 import Contract from './containers/Contract';
+import DeployContract from './containers/DeployContract';
 import { history } from './store';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
         <ConnectedRouter history={history}>
           <Switch>
             <Route exact={true} path="/" component={Dashboard} />
+            <Route path="/node/:id/contracts/deploy" component={DeployContract} />
             <Route path="/node/:id/contracts/:address" component={Contract} />
             <Route path="/node/:id/contracts" component={ContractList} />
             <Route path="/node/:id/block/:hash" component={Block} />
