@@ -75,14 +75,20 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
       });
     }
 
-  updateInputVals: EventWithDataHandler<React.ChangeEvent<{}>> =
-    (event?: React.ChangeEvent<{ name: string }>, value?: AbiFunction, previousValue?: string) => {
-      const idx = this.state.inputs.findIndex((input) => input.name === event!.target.name);
-      if (idx >= 0) {
-        // this.setState({
-        //   inputs: this.state.inputs.update(idx, (input) => input.set('value', value)),
-        // });
-      }
+    updateInputVals: EventWithDataHandler<React.ChangeEvent<{}>> =
+    (event?: React.ChangeEvent<{ name: string }>, value?: string, previousValue?: string) => {
+
+      const newInputs = this.state.inputs.map((input) => {
+        return input.name === event!.target.name ? {
+          ...input,
+          value,
+        } : input;
+      });
+
+      this.setState({
+        ...this.state,
+        inputs: newInputs,
+      });
     }
 
   /*
@@ -103,7 +109,10 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
     callContract(this.props.node.rpc!, address, this.state.function!, args)
       .then((result) => {
         if (result.length > 0) {
-          this.setState({ outputs: result as Output[] });
+          this.setState({
+            ...this.state,
+            outputs: result as Output[]
+          });
         }
       });
   }
@@ -113,7 +122,6 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
     const functions = contract.abi!;
     const func = this.state.function;
     const { outputs, inputs } = this.state;
-
     return (
       <Card>
         <CardText>
