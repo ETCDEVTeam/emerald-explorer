@@ -33,12 +33,15 @@ class AddContract extends React.PureComponent<AddContractFormProps> {
 
         <CardText expandable={false}>
           <form onSubmit={handleSubmit}>
+          <div>
             <Field
               name="name"
               component="input"
               type="text"
               label="Contract Name (optional)" 
             />
+          </div>
+          <div>
             <Field
               name="address"
               component="input"
@@ -46,14 +49,18 @@ class AddContract extends React.PureComponent<AddContractFormProps> {
               label="Contract Address"
               validate={[required, address]} 
             />
+          </div>
+          <div>
             <Field
               name="abi"
               component="textarea"
-              rows={2}
+              rows={10}
               type="text"
               label="Contract ABI / JSON Interface"
               validate={[required, isJson]} 
             />
+          </div>
+          <div>
             <FlatButton
               label="Submit"
               type="submit"
@@ -64,6 +71,7 @@ class AddContract extends React.PureComponent<AddContractFormProps> {
               disabled={pristine || submitting}
               onClick={reset}
             />
+          </div>
           </form>
         </CardText>
         <CardActions>

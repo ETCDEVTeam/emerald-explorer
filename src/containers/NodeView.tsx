@@ -2,10 +2,10 @@ import * as React from 'react';
 import { match } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Back as BackIcon } from 'emerald-js-ui/lib/icons2';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import BlockList from './BlockList';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 interface Props {
   node: Node;
@@ -16,7 +16,7 @@ function NodeView(props: Props) {
   const from = to - 15;
   return (
     <div>
-      <div><Link to="/"><BackIcon />Dashboard</Link></div>
+      <Breadcrumbs />
       <div><Link to={`/node/${props.node.id}/contracts`}>Contracts</Link></div>
       <div>Node ID: {props.node.id}</div>
       <div>

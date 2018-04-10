@@ -12,17 +12,20 @@ const initialState: State = {
     {
       id: '1',
       url: 'https://web3.gastracker.io',
-      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://web3.gastracker.io')))
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://web3.gastracker.io'))),
+      chainId: 61,
     },
     {
       id: '2',
       url: 'https://web3.gastracker.io/morden',
-      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://web3.gastracker.io/morden')))
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('https://web3.gastracker.io/morden'))),
+      chainId: 62,
     },
     {
       id: '3',
       url: 'http://localhost:8545',
-      rpc: new EthRpc(new JsonRpc(new HttpTransport('http://localhost:8545')))
+      rpc: new EthRpc(new JsonRpc(new HttpTransport('http://localhost:8545'))),
+      chainId: 1,
     }
   ]
 };
@@ -38,6 +41,7 @@ function onUpdateNodeStatus(state: State, action: UpdateNodeStatus): State {
           pendingBlock: action.pendingBlock,
           clientVersion: action.clientVersion,
           networkId: action.networkId,
+          gasPrice: action.gasPrice,
         } : node
     );
     return { ...state, nodes };

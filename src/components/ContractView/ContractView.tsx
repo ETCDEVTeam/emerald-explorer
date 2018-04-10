@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, CardTitle, CardHeader, CardText } from 'material-ui/Card';
-import { FlatButton, FontIcon } from 'material-ui';
+import { FlatButton, FontIcon, TextField } from 'material-ui';
 import InteractContract from '../ContractInteract';
 import { Contract } from '../../store/contracts/model';
 import { Node } from '../../store/nodes/model';
@@ -38,7 +38,14 @@ function ContractView(props: Props) {
         <div>
           <b>ABI / JSON Interface</b>
           <div>
-            {JSON.stringify(contract.abi)}
+            <TextField
+              disabled={true}
+              multiLine={true}
+              rowsMax={4}
+              rows={4}
+              underlineShow={false}
+              value={JSON.stringify(contract.abi)}
+            />
           </div>
         </div>
       </CardText>

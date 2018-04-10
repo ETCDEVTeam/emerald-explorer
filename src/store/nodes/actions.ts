@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { UPDATE_NODE_STATUS, UPDATE_NODE_STATUS_ERROR } from './constants';
 import { Block } from './model';
 
@@ -8,6 +9,7 @@ export interface UpdateNodeStatus {
     pendingBlock: Block;
     clientVersion: string;
     networkId: string;
+    gasPrice: BigNumber;
 }
 
 export interface UpdateNodeStatusError {
@@ -17,7 +19,8 @@ export interface UpdateNodeStatusError {
 }
 
 export function updateNodeStatus(
-  nodeId: string, blockNumber: number, pendingBlock: Block, version: string, networkId: string): UpdateNodeStatus {
+  nodeId: string, blockNumber: number, pendingBlock: Block, version: string,
+  networkId: string, gasPrice: BigNumber): UpdateNodeStatus {
     return {
         type: UPDATE_NODE_STATUS,
         nodeId,
@@ -25,6 +28,7 @@ export function updateNodeStatus(
         pendingBlock,
         clientVersion: version,
         networkId,
+        gasPrice,
     };
 }
 

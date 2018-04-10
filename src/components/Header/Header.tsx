@@ -14,7 +14,7 @@ function Header(prop: Props) {
   return (
     <div style={styles}>
       <div className="App-logo"><Logo /></div>
-      <div>Emerald Browser</div>
+      <div>Emerald Tool</div>
     </div>
   );
 }

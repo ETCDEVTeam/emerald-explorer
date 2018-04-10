@@ -6,6 +6,7 @@ import { Node } from '../store/nodes/model';
 import { Contract } from '../store/contracts/model';
 import ContractList from '../components/ContractList';
 import AddContract from '../components/AddContract';
+import Breadcrumbs from '../components/Breadcrumbs';
 import { FormSubmitHandler } from 'redux-form';
 import { AddContractFormData, AddContractProps } from '../components/AddContract/AddContract';
 import * as actions from '../store/contracts/actions';
@@ -26,7 +27,6 @@ class ContractListContainer extends React.Component<ContractListContainerProps> 
   
   deployNewContractHandler = () => {
     const { node } = this.props;
-    console.log('Deploy new contract handler called');
     history.push(`/node/${node.id}/contracts/deploy`);
   }
 
@@ -34,6 +34,7 @@ class ContractListContainer extends React.Component<ContractListContainerProps> 
     const { node, contracts } = this.props;
     return (
       <React.Fragment>
+        <Breadcrumbs nodeId={node.id} />
         <ContractList node={node} contracts={contracts} />
         <AddContract
           onSubmit={addContractHandler}

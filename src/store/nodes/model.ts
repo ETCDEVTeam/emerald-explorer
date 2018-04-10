@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { EthRpc } from 'emerald-js';
 
 export type Node = {
@@ -9,6 +10,8 @@ export type Node = {
     blockNumber?: number;  // last block number
     pendingBlock?: Block;  // current pending block
     error?: string | null; // any error occured during communication
+    gasPrice?: BigNumber;
+    chainId: number;
 };
 
 export type Block = {

@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/redux-form": "^7.2.2",
     "emerald-js": "https://github.com/gagarin55/emerald-js.git#ethrpc-api-web3",
     "emerald-js-ui": "https://github.com/gagarin55/emerald-js-ui.git#typings",
     "ethereumjs-abi": "^0.6.5",
@@ -41,6 +40,7 @@
     "@types/react-router-dom": "^4.2.4",
     "@types/react-router-redux": "^5.0.12",
     "@types/react-test-renderer": "^16.0.1",
+    "@types/redux-form": "^7.2.2",
     "@types/redux-logger": "^3.0.5",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",

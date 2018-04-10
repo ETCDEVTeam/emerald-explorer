@@ -30,3 +30,11 @@ export function hex(value: string) {
   const val = value.substring(0, 2) === '0x' ? value.substring(2) : value;
   return /^[0-9A-Fa-f]+$/.test(val) ? undefined : 'Invalid hex';
 }
+
+export function privateKey(value: string) {
+  if ((value === '') || (value === undefined)) {
+    return undefined;
+  }
+  const val = value.substring(0, 2) === '0x' ? value.substring(2) : value;
+  return /^[0-9A-Fa-f]+$/.test(val) ? undefined : 'Invalid private key';
+}
