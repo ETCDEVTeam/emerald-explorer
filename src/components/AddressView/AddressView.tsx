@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BigNumber } from 'bignumber.js';
-import { Tabs, Tab } from 'material-ui/Tabs';
 
 interface AddressViewProps {
   address: string;
@@ -26,13 +25,10 @@ function renderGeneral(props: AddressViewProps) {
 }
 
 function AddressView(props: AddressViewProps) {
-  console.error(props);
   return (
-    <Tabs>
-      <Tab label="General">
+    <React.Fragment>
         {renderGeneral(props)}
-      </Tab>
-    </Tabs>
+    </React.Fragment>
   );
 }
 

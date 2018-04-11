@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { InjectedFormProps, reduxForm, Field } from 'redux-form';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import { Add as AddIcon } from 'emerald-js-ui/lib/icons2';
+import Button from 'material-ui/Button';
+import Card, { CardActions, CardHeader, CardContent } from 'material-ui/Card';
 import { required, address, isJson } from '../validators';
 
 export interface AddContractProps {
@@ -27,11 +26,8 @@ class AddContract extends React.PureComponent<AddContractFormProps> {
       <Card>
         <CardHeader
           title="Add Contract"
-          actAsExpander={false}
-          showExpandableButton={false}
         />
-
-        <CardText expandable={false}>
+        <CardContent>
           <form onSubmit={handleSubmit}>
           <div>
             <Field
@@ -61,25 +57,23 @@ class AddContract extends React.PureComponent<AddContractFormProps> {
             />
           </div>
           <div>
-            <FlatButton
-              label="Submit"
+            <Button
               type="submit"
               disabled={pristine || submitting || invalid}
-            />
-            <FlatButton
-              label="Clear Values"
+            >
+              Submit
+            </Button>
+            <Button
               disabled={pristine || submitting}
               onClick={reset}
-            />
+            >
+              Clear Values
+            </Button>
           </div>
           </form>
-        </CardText>
+        </CardContent>
         <CardActions>
-          <FlatButton
-            label="Deploy New Contract"
-            icon={<AddIcon />}
-            onClick={onDeployNewContract}
-          />
+          <Button onClick={onDeployNewContract}>Deploy New Contract</Button>
         </CardActions>
       </Card>
     );

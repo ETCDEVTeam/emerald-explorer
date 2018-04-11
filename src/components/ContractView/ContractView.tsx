@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Card, CardTitle, CardHeader, CardText } from 'material-ui/Card';
-import { FlatButton, FontIcon, TextField } from 'material-ui';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
+import { Button, TextField } from 'material-ui';
 import InteractContract from '../ContractInteract';
 import { Contract } from '../../store/contracts/model';
 import { Node } from '../../store/nodes/model';
@@ -16,9 +16,9 @@ function ContractView(props: Props) {
     <Card>
       <CardHeader
         title={`Contract: ${contract.name}`}
-        subtitle={contract.address}
+        subheader={contract.address}
       />
-      <CardText>
+      <CardContent>
         <table>
           <tbody>
           <tr>
@@ -40,24 +40,20 @@ function ContractView(props: Props) {
           <div>
             <TextField
               disabled={true}
-              multiLine={true}
+              multiline={true}
               rowsMax={4}
               rows={4}
-              underlineShow={false}
               value={JSON.stringify(contract.abi)}
             />
           </div>
         </div>
-      </CardText>
-      <CardTitle actAsExpander={true}>
-        <FlatButton
-          label="Access Contract"
-          icon={<FontIcon className="fa fa-arrow-circle-o-right" />}
-        />
-      </CardTitle>
-      <CardText expandable={true}>
+      </CardContent>
+      <CardHeader>
+        <Button>Access Contract</Button>
+      </CardHeader>
+      <CardContent>
         <InteractContract contract={contract} node={node} />
-      </CardText>
+      </CardContent>
     </Card>
   );
 }

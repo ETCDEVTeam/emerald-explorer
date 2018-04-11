@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { InjectedFormProps, reduxForm, Field, WrappedFieldProps, EventWithDataHandler } from 'redux-form';
-import { SelectFieldProps, TextFieldProps } from 'material-ui';
-import { SelectField, TextField } from 'redux-form-material-ui';
-import { Card, CardActions, CardText, FlatButton, MenuItem, FontIcon } from 'material-ui';
+// import { TextFieldProps } from 'material-ui/TextField';
+import { SelectProps } from 'material-ui/Select';
+import { Select, TextField } from 'redux-form-material-ui';
+import { Card, CardActions, CardContent, Button, MenuItem } from 'material-ui';
 import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../store/contracts/model';
 import { Node } from '../../store/nodes/model';
 import { required, number } from '../validators';
@@ -50,28 +51,31 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
   }
 
   changeInputs: EventWithDataHandler<React.ChangeEvent<{}>> =
-    (event?: React.ChangeEvent<{}>, value?: AbiFunction, previousValue?: string) => {
-      if (!value) {
+    (event?: React.ChangeEvent<{}>, value?: string, previousValue?: string) => {
+      const { contract } = this.props;
+      const functions = contract.abi!;
+      const func = functions.find((f) => f.name === value);
+      if (!func) {
         return;
       }
 
       let inputs: Array<Input>;
       let outputs: Array<Output>;
       // if constant, read directly
-      if (value.inputs.length > 0) {
-        inputs = value.inputs;
+      if (func.inputs.length > 0) {
+        inputs = func.inputs;
       } else {
         inputs = [];
       }
-      if (value.constant && value.outputs.length > 0) {
-        outputs = value.outputs;
+      if (func.constant && func.outputs.length > 0) {
+        outputs = func.outputs;
       } else {
         outputs = [];
       }
       this.setState({
         inputs,
         outputs,
-        function: value,
+        function: func,
       });
     }
 
@@ -124,21 +128,21 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
     const { outputs, inputs } = this.state;
     return (
       <Card>
-        <CardText>
+        <CardContent>
           <div>
             <div>
               <Field
                 name="selectedFunction"
-                component={SelectField as React.ComponentType<WrappedFieldProps & SelectFieldProps>}
+                component={Select as React.ComponentType<WrappedFieldProps & SelectProps>}
                 onChange={this.changeInputs}
               >
                 {functions.map((f: { name: string }) =>
                   <MenuItem
                     key={f.name}
-                    value={f}
-                    label={f.name}
-                    primaryText={f.name}
-                  />
+                    value={f.name}
+                  >
+                  {f.name}
+                  </MenuItem>
                 )}
               </Field>
             </div>
@@ -148,9 +152,10 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
               <div key={`${func.name} ${input.name} IN`}>
                 <Field
                   name={input.name}
-                  floatingLabelText={`${input.name} (${input.type})`}
-                  hintText={input.type}
-                  component={TextField as React.ComponentType<WrappedFieldProps & TextFieldProps>}
+                  label={`${input.name} (${input.type})`}
+                  // hintText={input.type}
+                  /* tslint:disable-next-line */
+                  component={TextField as any}
                   onChange={this.updateInputVals}
                 />
               </div>
@@ -195,42 +200,40 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
               <div>
                 <Field 
                   name="value"
-                  floatingLabelText="Value to Send"
+                  label="Value to Send"
                   hintText="0"
-                  component={TextField as React.ComponentType<WrappedFieldProps & TextFieldProps>} 
+                  /* tslint:disable-next-line */
+                  component={TextField as any} 
                 />
               </div>}
               <div>
                 <Field
                   name="gas"
-                  floatingLabelText="Gas Amount"
-                  component={TextField as React.ComponentType<WrappedFieldProps & TextFieldProps>}
+                  label="Gas Amount"
+                  /* tslint:disable-next-line */
+                  component={TextField as any}
                   validate={[required, number]} 
                 />
               </div>
             </div>
           }
-        </CardText>
+        </CardContent>
         <CardActions>
           {func && func.constant &&
-            <FlatButton
-              label="Submit"
+            <Button
               disabled={pristine || this.props.submitting || this.props.invalid}
               onClick={this.onCallContract}
-              icon={<FontIcon className="fa fa-check" />}
-            />}
+            >
+            Submit
+            </Button>}
           {!(func && func.constant) &&
-            <FlatButton
-              label="Submit"
+            <Button
               disabled={pristine || this.props.submitting || this.props.invalid}
               onClick={handleSubmit}
-              icon={<FontIcon className="fa fa-check" />}
-            />}
-          <FlatButton
-            label="Clear"
-            onClick={reset}
-            icon={<FontIcon className="fa fa-ban" />}
-          />
+            >
+            Submit
+            </Button>}
+          <Button onClick={reset}>Clear</Button>
         </CardActions>
       </Card>
     );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextField, RaisedButton } from 'material-ui';
+import { TextField, Button } from 'material-ui';
 import { Wallet } from 'emerald-js';
 
 interface Props {
@@ -81,45 +81,45 @@ class CreateDeployTx extends React.Component<Props, State> {
     }
   }
 
-  onGasPriceChange = (e: React.FormEvent<{}>, newValue: string) => {
+  onGasPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       ...this.state,
-      gasPrice: Number(newValue),
+      gasPrice: Number(event.target.value),
     });
   }
 
-  onByteCodeChanged = (e: React.FormEvent<{}>, newValue: string) => {
+  onByteCodeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       ...this.state,
-      byteCode: newValue,
+      byteCode: event.target.value,
     });
   }
 
-  onGasChanged = (e: React.FormEvent<{}>, newValue: string) => {
+  onGasChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       ...this.state,
-      gas: Number(newValue),
+      gas: Number(event.target.value),
     });
   }
 
-  onNonceChange = (e: React.FormEvent<{}>, newValue: string) => {
+  onNonceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       ...this.state,
-      nonce: Number(newValue),
+      nonce: Number(event.target.value),
     });
   }
 
-  onPrivKeyChange = (e: React.FormEvent<{}>, newValue: string) => {
+  onPrivKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let address;
     try {
-      address = Wallet.fromPrivateKey(newValue).getAddress();
+      address = Wallet.fromPrivateKey(event.target.value).getAddress();
     } catch (err) {
       console.error(err);
     }
 
     this.setState({
       ...this.state,
-      privKey: newValue,
+      privKey: event.target.value,
       from: address,
     });
   }
@@ -143,11 +143,11 @@ class CreateDeployTx extends React.Component<Props, State> {
             required={true}
             rows={4}
             rowsMax={4}
-            multiLine={true}
+            multiline={true}
             onChange={this.onByteCodeChanged}
           />
         </div>
-        <div>Nonce <RaisedButton onClick={this.getNonce}>Get</RaisedButton></div>
+        <div>Nonce <Button onClick={this.getNonce}>Get</Button></div>
         <div>
           <TextField
             value={this.state.nonce}
@@ -161,7 +161,7 @@ class CreateDeployTx extends React.Component<Props, State> {
             onChange={this.onGasPriceChange}
           />
         </div>
-        <div>Gas <RaisedButton onClick={this.estimateGas}>Estimate</RaisedButton></div>
+        <div>Gas <Button onClick={this.estimateGas}>Estimate</Button></div>
         <div>
           <TextField
             value={this.state.gas}
@@ -169,7 +169,7 @@ class CreateDeployTx extends React.Component<Props, State> {
           />
         </div>
         <div>
-          <RaisedButton onClick={this.createTx}>Create Transaction</RaisedButton>
+          <Button onClick={this.createTx}>Create Transaction</Button>
         </div>
         <div>{error}</div>
       </div>

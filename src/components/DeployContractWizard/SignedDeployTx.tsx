@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RaisedButton } from 'material-ui';
+import { Button } from 'material-ui';
 
 interface Props {
   signedTx: string;
@@ -14,7 +14,7 @@ function SignedDeployTx(props: Props) {
       <div><pre>{JSON.stringify(tx)}</pre></div>
       <div><pre>{signedTx}</pre></div>
       <div>
-        <RaisedButton onClick={props.onSendTx}>Broadcast</RaisedButton>
+        <Button onClick={props.onSendTx}>Broadcast</Button>
       </div>
     </div>
   );

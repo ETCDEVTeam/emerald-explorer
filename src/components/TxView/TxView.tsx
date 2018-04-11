@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Tabs, Tab } from 'material-ui/Tabs';
 import { Link } from 'react-router-dom';
 import { Transaction, TransactionReceipt } from 'emerald-js';
 
@@ -140,13 +139,10 @@ function TxView(props: TxViewProps) {
   }
 
   return (
-    <Tabs>
-      <Tab label="Tx data" >
+    <div>
         <div>
           {renderTxTable(tx, receipt, baseUrl)}
         </div>
-      </Tab>
-      <Tab label="JSON" >
         <div>
           <div>
             <textarea>
@@ -159,8 +155,7 @@ function TxView(props: TxViewProps) {
             </textarea>
           </div>
         </div>
-      </Tab>
-    </Tabs>
+        </div>
   );
 }
 
