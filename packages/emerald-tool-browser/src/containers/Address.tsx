@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { BigNumber } from 'bignumber.js';
-import AddressView from '../components/AddressView';
+import { AddressView } from 'emerald-tool';
 
 interface Props extends RouteComponentProps<void> {
   node: Node;

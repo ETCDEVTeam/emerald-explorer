@@ -1,4 +1,7 @@
 {
+	"scripts": {
+		"build:browser": "lerna run build --scope emerald-tool-browser --include-filtered-dependencies --stream"
+	},
 	"devDependencies": {
 		"lerna": "^2.11.0"
 	}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BigNumber } from 'bignumber.js';
 
-interface AddressViewProps {
+export interface AddressViewProps {
   address: string;
   balance: BigNumber;
   txCount: number;

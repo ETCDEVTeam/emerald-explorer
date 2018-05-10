@@ -1,0 +1,14 @@
+{
+  "name": "emerald-tool",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "bignumber.js": "^7.0.1",
+    "react": "^16.3.2"
+  }
+}
