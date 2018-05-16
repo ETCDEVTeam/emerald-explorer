@@ -2,6 +2,7 @@
 import { Store } from 'redux';
 import { AppState } from './types';
 import nodes from './nodes';
+import { BigNumber } from 'bignumber.js';
 
 function refreshNodesState(store: Store<AppState>) {
 
@@ -15,7 +16,7 @@ function refreshNodesState(store: Store<AppState>) {
         const gasPrice = await n.rpc.eth.gasPrice();
         store.dispatch(
           nodes.actions.updateNodeStatus(
-            n.id!, blockNumber, pendingBlock, clientVersion, networkId, gasPrice));
+            n.id!, blockNumber, pendingBlock, clientVersion, networkId, new BigNumber(gasPrice.toFixed())));
       } catch (err) {
         store.dispatch(nodes.actions.updateNodeStatusError(
           n.id!, err.message));

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { match, RouteComponentProps } from 'react-router';
+import { match } from 'react-router';
 import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { Transaction, TransactionReceipt } from 'emerald-js';
 import TxView from '../components/TxView';
 
-interface Props extends RouteComponentProps<void> {
+interface Props {
   node: Node;
   hash: string;
 }

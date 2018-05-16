@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { match, RouteComponentProps } from 'react-router';
+import { match /*, RouteComponentProps*/} from 'react-router';
 import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { BlockWithTxData } from 'emerald-js';
 import BlockView from '../components/BlockView';
 
-interface Props extends RouteComponentProps<void> {
+interface Props {
   node: Node;
   hash: string;
 }
