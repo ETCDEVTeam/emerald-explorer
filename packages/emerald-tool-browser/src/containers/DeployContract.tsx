@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { match } from 'react-router';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
@@ -59,7 +59,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
   };
 };
 
-function mapDispatchToProps(dispatch: Dispatch<AppState>, ownProps: OwnProps) {
+function mapDispatchToProps(dispatch: any, ownProps: OwnProps) {
   return {
   };
 }

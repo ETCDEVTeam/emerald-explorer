@@ -20,6 +20,7 @@ function BlockView(props: Props) {
       <div><Link to={`${baseUrl}`}>Node</Link></div>
       <div>
         <table>
+          <tbody>
           <tr><td>Number</td><td>{block.number}</td></tr>
           <tr><td>Timestamp</td><td>{block.timestamp}</td></tr>
           <tr><td>Hash</td><td>{block.hash}</td></tr>
@@ -31,6 +32,7 @@ function BlockView(props: Props) {
           <tr><td>State Root</td><td>{block.stateRoot}</td></tr>
           <tr><td>Transactions Root</td><td>{block.transactionsRoot}</td></tr>
           <tr><td>Receipts Root</td><td>{block.receiptsRoot}</td></tr>
+          </tbody>
         </table>
         <TxList transactions={block.transactions} baseUrl={baseUrl}/>
       </div>

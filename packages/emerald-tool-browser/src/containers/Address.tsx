@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { match, RouteComponentProps } from 'react-router';
+import { match /*, RouteComponentProps */} from 'react-router';
 import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { BigNumber } from 'bignumber.js';
 import { AddressView } from 'emerald-tool';
 
-interface Props extends RouteComponentProps<void> {
+interface Props {
   node: Node;
   address: string;
 }
@@ -35,7 +35,7 @@ class Address extends React.Component<Props, State> {
     const code = await node.rpc!.eth.getCode(address);
 
     this.setState({
-      balance: balance,
+      balance: new BigNumber(balance.toFixed()),
       txCount: txCount,
       code: code,
     });
@@ -50,7 +50,7 @@ class Address extends React.Component<Props, State> {
         <AddressView
           address={address!}
           txCount={txCount!}
-          balance={balance!}
+          balance={balance || new BigNumber(0)}
           baseUrl={baseUrl}
           code={code}
         />
@@ -67,4 +67,4 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   address: ownProps.match.params.hex,
 });
 
-export default (connect(mapStateToProps)(Address));
+export default (connect(mapStateToProps, null)(Address));

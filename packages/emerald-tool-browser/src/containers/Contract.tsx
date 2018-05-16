@@ -30,7 +30,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   contract: state.contracts.contracts.find((c) => c.address === ownProps.match.params.address),
 });
 
-function mapDispatchToProps(dispatch: Dispatch<AppState>) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
   };
 }

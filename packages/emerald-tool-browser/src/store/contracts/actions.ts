@@ -12,7 +12,7 @@ export interface AddContract {
 
 export type ContractsAction = AddContract;
 
-export type ContractsThunkAction = ThunkAction<AddContract, AppState, void>;
+export type ContractsThunkAction = ThunkAction<void, AppState, AddContract>;
 
 // Redux Action
 export function addContract(
@@ -28,8 +28,8 @@ export function addContract(
 // Redux-Thunk Action
 export function addContractThunk(
   address: string, name: string, abi: string, version?: string, options?: string, txhash?: string
-): ThunkAction<void, AppState, void> {
-  return (dispatch: Dispatch<AppState>, getState: () => AppState): void => {
+): ThunkAction<void, AppState, AddContract> {
+  return (dispatch: Dispatch<AddContract>, getState: () => AppState): void => {
     dispatch(addContract(address, name, abi));
   };
 }

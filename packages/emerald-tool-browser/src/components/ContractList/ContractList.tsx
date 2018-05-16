@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Table, { TableBody, TableHead, TableRow, TableCell } from 'material-ui/Table';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import Avatar from 'material-ui/Avatar';
 import { Node } from '../../store/nodes/model';
 import { Contract } from '../../store/contracts/model';
@@ -48,7 +47,7 @@ function ContractList(props: Props) {
   // const titleStyle = {
   //   fontSize: '20px',
   // };
-  const titleAvatar = <Avatar><LibraryBooks /></Avatar>;
+  const titleAvatar = <Avatar />;
 
   return (
     <Card>
