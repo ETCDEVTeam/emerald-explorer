@@ -19,6 +19,7 @@
     "typescript": "^2.8.3"
   },
   "dependencies": {
+    "emerald-js": "git+https://github.com/ETCDEVTeam/emerald-js.git#v0.1.2",
     "bignumber.js": "^7.0.1",
     "material-ui": "1.0.0-beta.41",
     "react": "^16.3.2",

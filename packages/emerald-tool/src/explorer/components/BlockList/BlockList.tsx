@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { BlockWithoutTxData } from 'emerald-js';
-import './BlockList.css';
 
-interface BlockListProps {
+export interface BlockListProps {
   blocks: Array<BlockWithoutTxData>;
   nodeId: string;
 }
