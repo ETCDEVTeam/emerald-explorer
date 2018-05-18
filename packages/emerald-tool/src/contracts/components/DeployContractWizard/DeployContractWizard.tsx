@@ -3,7 +3,7 @@ import { Wallet } from 'emerald-js';
 import CreateDeployTx from './CreateDeployTx';
 import SignedDeployTx from './SignedDeployTx';
 
-interface Props {
+export interface Props {
   onEstimateGas?: (callData: {from: string, data: string, gas: number}) => Promise<number>;
   onGetAccountNonce?: (address: string) => Promise<number>;
   onCreateSignedTx?: (txData: {}, privKey: string) => void;
@@ -12,7 +12,7 @@ interface Props {
   chainId: number;
 }
 
-interface State {
+export interface State {
   signedTx?: string;
   tx?: {};
   txHash?: string;

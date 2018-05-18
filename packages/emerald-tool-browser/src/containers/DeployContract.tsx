@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { match } from 'react-router';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
-import DeployContractWizard from '../components/DeployContractWizard';
+import { DeployContractWizard } from 'emerald-tool';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 interface Props {
