@@ -2,9 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Transaction } from 'emerald-js';
 
-import './TxList.css';
-
-interface TxListProps {
+export interface TxListProps {
   transactions: Transaction[];
   baseUrl: string;
 }

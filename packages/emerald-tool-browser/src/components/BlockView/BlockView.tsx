@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { BlockWithTxData } from 'emerald-js';
-import TxList from '../TxList';
+import { TxList } from 'emerald-tool';
 
 interface Props {
   block: BlockWithTxData;

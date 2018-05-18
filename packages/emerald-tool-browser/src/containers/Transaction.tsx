@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { Transaction, TransactionReceipt } from 'emerald-js';
-import TxView from '../components/TxView';
+import { TxView } from 'emerald-tool';
 
 interface Props {
   node: Node;

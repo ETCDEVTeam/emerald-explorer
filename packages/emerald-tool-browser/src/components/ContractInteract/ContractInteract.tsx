@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { InjectedFormProps, reduxForm, Field, WrappedFieldProps, EventWithDataHandler } from 'redux-form';
-// import { TextFieldProps } from 'material-ui/TextField';
 import { SelectProps } from 'material-ui/Select';
 import { Select, TextField } from 'redux-form-material-ui';
 import { Card, CardActions, CardContent, Button, MenuItem } from 'material-ui';

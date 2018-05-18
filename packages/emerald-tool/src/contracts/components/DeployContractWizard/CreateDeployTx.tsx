@@ -2,14 +2,14 @@ import * as React from 'react';
 import { TextField, Button } from 'material-ui';
 import { Wallet } from 'emerald-js';
 
-interface Props {
+export interface Props {
   onEstimateGas?: (callData: {from: string, data: string, gas: number}) => Promise<number>;
   onGetAccountNonce?: (address: string) => Promise<number>;
   onCreateSignedTx?: (txData: {}, privKey: string) => void;
   gasPrice?: number;
 }
 
-interface State {
+export interface State {
   privKey?: string;
   from?: string;
   gasPrice?: number;

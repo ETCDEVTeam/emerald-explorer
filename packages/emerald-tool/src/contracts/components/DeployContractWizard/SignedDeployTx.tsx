@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from 'material-ui';
 
-interface Props {
+export interface Props {
   signedTx: string;
   tx: {};
   onSendTx: () => void;
