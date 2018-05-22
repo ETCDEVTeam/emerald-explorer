@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { BlockWithTxData } from 'emerald-js';
-import BlockView from '../components/BlockView';
+import { BlockView } from 'emerald-tool';
 
 interface Props {
   node: Node;

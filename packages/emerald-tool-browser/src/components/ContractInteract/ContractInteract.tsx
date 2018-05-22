@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { InjectedFormProps, reduxForm, Field, WrappedFieldProps, EventWithDataHandler } from 'redux-form';
-import { SelectProps } from 'material-ui/Select';
-import { Select, TextField } from 'redux-form-material-ui';
+import { Select, TextField } from 'material-ui';
 import { Card, CardActions, CardContent, Button, MenuItem } from 'material-ui';
 import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../store/contracts/model';
 import { Node } from '../../store/nodes/model';
-import { required, number } from '../validators';
+// import { required, number } from '../validators';
 import { callContract } from './utils';
 
 interface AbiFunctionInputValue {
@@ -24,36 +22,45 @@ interface State {
   function?: AbiFunction;
   inputs: Array<Input>;
   outputs: Array<Output>;
+  selectedFunction: string;
+  value?: string;
+  gas?: string;
 }
 
 interface Props {
   contract: Contract;
   node: Node;
+  onSubmit?: () => void;
 }
 
-export interface FormData {
-  selectedFunction: AbiFunction;
-  value?: number;
-  gas?: number;
-}
+class ContractInteract extends React.Component<Props, State> {
 
-export type ContractInteractProps = InjectedFormProps<FormData, Props> & Props;
-
-class ContractInteract extends React.Component<ContractInteractProps, State> {
-  constructor(props: ContractInteractProps) {
+  constructor(props: Props) {
     super(props);
     this.state = {
+      selectedFunction: '',
       function: undefined,
       inputs: [],
       outputs: [],
     };
   }
 
-  changeInputs: EventWithDataHandler<React.ChangeEvent<{}>> =
-    (event?: React.ChangeEvent<{}>, value?: string, previousValue?: string) => {
+  handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      value: event.target.value,
+    });
+  }
+
+  handleGasChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      gas: event.target.value,
+    });
+  }
+
+  handleSelectFuncChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const { contract } = this.props;
       const functions = contract.abi!;
-      const func = functions.find((f) => f.name === value);
+      const func = functions.find((f) => f.name === event.target.value);
       if (!func) {
         return;
       }
@@ -75,16 +82,16 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
         inputs,
         outputs,
         function: func,
+        selectedFunction: event.target.value
       });
     }
 
-    updateInputVals: EventWithDataHandler<React.ChangeEvent<{}>> =
-    (event?: React.ChangeEvent<{ name: string }>, value?: string, previousValue?: string) => {
+    updateInputVals = (event: React.ChangeEvent<HTMLInputElement>) => {
 
       const newInputs = this.state.inputs.map((input) => {
-        return input.name === event!.target.name ? {
+        return input.name === event.target.name ? {
           ...input,
-          value,
+          value: event.target.value,
         } : input;
       });
 
@@ -121,7 +128,7 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
   }
 
   render() {
-    const { contract, reset, handleSubmit, pristine } = this.props;
+    const { contract, onSubmit } = this.props;
     const functions = contract.abi!;
     const func = this.state.function;
     const { outputs, inputs } = this.state;
@@ -130,10 +137,9 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
         <CardContent>
           <div>
             <div>
-              <Field
-                name="selectedFunction"
-                component={Select as React.ComponentType<WrappedFieldProps & SelectProps>}
-                onChange={this.changeInputs}
+              <Select
+                value={this.state.selectedFunction}
+                onChange={this.handleSelectFuncChange}
               >
                 {functions.map((f: { name: string }) =>
                   <MenuItem
@@ -143,18 +149,15 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
                   {f.name}
                   </MenuItem>
                 )}
-              </Field>
+              </Select>
             </div>
           </div>
           <div>
             {func && inputs && inputs.map((input) =>
               <div key={`${func.name} ${input.name} IN`}>
-                <Field
+                <TextField
                   name={input.name}
                   label={`${input.name} (${input.type})`}
-                  // hintText={input.type}
-                  /* tslint:disable-next-line */
-                  component={TextField as any}
                   onChange={this.updateInputVals}
                 />
               </div>
@@ -197,21 +200,18 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
             <div>
               {func!.payable && 
               <div>
-                <Field 
+                <TextField
+                  value={this.state.value}
                   name="value"
                   label="Value to Send"
-                  hintText="0"
-                  /* tslint:disable-next-line */
-                  component={TextField as any} 
+                  onChange={this.handleValueChange}
                 />
               </div>}
               <div>
-                <Field
+                <TextField
                   name="gas"
                   label="Gas Amount"
-                  /* tslint:disable-next-line */
-                  component={TextField as any}
-                  validate={[required, number]} 
+                  onChange={this.handleGasChange}
                 />
               </div>
             </div>
@@ -220,24 +220,18 @@ class ContractInteract extends React.Component<ContractInteractProps, State> {
         <CardActions>
           {func && func.constant &&
             <Button
-              disabled={pristine || this.props.submitting || this.props.invalid}
               onClick={this.onCallContract}
             >
-            Submit
+            Call
             </Button>}
           {!(func && func.constant) &&
-            <Button
-              disabled={pristine || this.props.submitting || this.props.invalid}
-              onClick={handleSubmit}
-            >
-            Submit
-            </Button>}
-          <Button onClick={reset}>Clear</Button>
+            <Button onClick={onSubmit}>Submit</Button>
+          }
+          <Button>Clear</Button>
         </CardActions>
       </Card>
     );
   }
 }
 
-const ContractInteractForm = reduxForm<FormData, Props>({ form: 'ContractInteractForm' })(ContractInteract);
-export default ContractInteractForm;
+export default ContractInteract;

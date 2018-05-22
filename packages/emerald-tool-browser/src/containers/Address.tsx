@@ -3,7 +3,6 @@ import { match /*, RouteComponentProps */} from 'react-router';
 import { connect } from 'react-redux';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
-import { BigNumber } from 'bignumber.js';
 import { AddressView } from 'emerald-tool';
 
 interface Props {
@@ -12,7 +11,7 @@ interface Props {
 }
 
 interface State {
-  balance: BigNumber | null;
+  balance: string | null;
   txCount: number | null;
   code: string;
 }
@@ -35,7 +34,7 @@ class Address extends React.Component<Props, State> {
     const code = await node.rpc!.eth.getCode(address);
 
     this.setState({
-      balance: new BigNumber(balance.toFixed()),
+      balance: balance.toFixed(),
       txCount: txCount,
       code: code,
     });
@@ -44,13 +43,12 @@ class Address extends React.Component<Props, State> {
   render() {
     const { address } = this.props;
     const { balance, txCount, code } = this.state;
-    console.error(this.state);
     const baseUrl = `/node/${this.props.node.id!}`;
     return (
         <AddressView
           address={address!}
           txCount={txCount!}
-          balance={balance || new BigNumber(0)}
+          balance={balance || ''}
           baseUrl={baseUrl}
           code={code}
         />
