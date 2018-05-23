@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware, Store } from 'redux';
 import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
-import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 
 import { AppState } from './types';
@@ -18,7 +17,6 @@ const router = routerMiddleware(history);
 const rootReducer = combineReducers<AppState>({
   nodes: nodes.reducer,
   contracts: contracts.reducer,
-  form: formReducer,
 });
 
 const loggerMiddleware = createLogger({

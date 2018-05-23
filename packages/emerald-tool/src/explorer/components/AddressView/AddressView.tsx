@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { BigNumber } from 'bignumber.js';
 
 export interface AddressViewProps {
   address: string;
-  balance: BigNumber;
+  balance: string;
   txCount: number;
   code: string;
   baseUrl: string;
@@ -13,7 +12,7 @@ function renderGeneral(props: AddressViewProps) {
   const { address, balance, txCount, code } = props;
   return (
     <div>
-    <div>Balance: {balance && balance.toString()}</div>
+    <div>Balance: {balance}</div>
     <div>Tx count: {txCount}</div>
     <div>{address}</div>
     <div>Code</div>
