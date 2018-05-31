@@ -1,26 +1,7 @@
-import { Record } from 'immutable';
 import { ContractsAction, AddContract } from './actions';
 import { Contract } from './model';
 import { ADD_CONTRACT } from './constants';
-
-type StateParams = {
-  contracts: Array<Contract>;
-  loading: boolean;
-};
-
-const defaultValues: StateParams = {
-  contracts: [],
-  loading: false,
-};
-
-export class State extends Record(defaultValues) {
-  contracts: Array<Contract>;
-  loading: boolean;
-
-  constructor() {
-    super(defaultValues);
-  }
-}
+import { State } from './state';
 
 const initialState = new State();
 

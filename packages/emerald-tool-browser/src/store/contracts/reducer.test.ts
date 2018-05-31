@@ -1,4 +1,5 @@
-import reduce, { State } from './reducer';
+import reduce from './reducer';
+import { State } from './state';
 import * as actions from './actions';
 
 describe('contracts reducer', () => {

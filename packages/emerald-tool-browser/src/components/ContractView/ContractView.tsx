@@ -1,17 +1,17 @@
 import * as React from 'react';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import { Button, TextField } from 'material-ui';
-import InteractContract from '../ContractInteract';
-import { Contract } from '../../store/contracts/model';
-import { Node } from '../../store/nodes/model';
+import { ContractInteract } from 'emerald-tool';
+import { Contract, AbiFunction } from '../../store/contracts/model';
+import { OutputValue } from 'emerald-js/src/contracts';
 
 export interface Props {
   contract: Contract;
-  node: Node;
+  onContractCall?: (contractAddress: string, func: AbiFunction, inputs: {}) => Promise<OutputValue[]>;
 }
 
 function ContractView(props: Props) {
-  const { contract, node } = props;
+  const { contract, onContractCall } = props;
   return (
     <Card>
       <CardHeader
@@ -52,7 +52,10 @@ function ContractView(props: Props) {
         <Button>Access Contract</Button>
       </CardHeader>
       <CardContent>
-        <InteractContract contract={contract} node={node} />
+        <ContractInteract
+          contract={contract}
+          onCall={onContractCall}
+        />
       </CardContent>
     </Card>
   );
