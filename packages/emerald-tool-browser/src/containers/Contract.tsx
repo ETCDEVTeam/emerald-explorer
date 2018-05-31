@@ -4,21 +4,49 @@ import { connect, Dispatch } from 'react-redux';
 import { match } from 'react-router';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
-import { Contract } from '../store/contracts/model';
+import { Contract, AbiFunction } from '../store/contracts/model';
 import ContractView from '../components/ContractView';
+import { EthRpc, contracts } from 'emerald-js';
+import { OutputValue, InputValues } from 'emerald-js/src/contracts';
 
 interface ContractContainerProps {
   node: Node;
   contract: Contract;
 }
 
-function ContractContainer(props: ContractContainerProps) {
-  if (props.contract) {
-    return (
-      <ContractView contract={props.contract} node={props.node} />
-    );
+/**
+ * Call Contract without creating transaction
+ * Result of eth_call should be the return value of executed contract.
+ */
+export async function callContract(
+  rpc: EthRpc, contractAddress: string, func: AbiFunction, inputs: {}): Promise<OutputValue[]> {
+  const data = contracts.functionToData(func, inputs as InputValues);
+  const result = await rpc.eth.call({ to: contractAddress, data });
+  console.log('eth_call result: ' + JSON.stringify(result));
+  return contracts.dataToParams(func, result);
+}
+
+/**
+ * Display contract info and handles calls to contract's methods
+ */
+class ContractContainer extends React.Component<ContractContainerProps> {
+
+  handleContractCall = (address: string, func: AbiFunction, inputs: {}) => {
+    return callContract(this.props.node.rpc!, address, func, inputs);
   }
-  return (<Redirect to={`/node/${props.node.id}/contracts`}/>);
+
+  render() {
+    if (this.props.contract) {
+      return (
+        <ContractView
+          contract={this.props.contract}
+          onContractCall={this.handleContractCall} 
+        />
+      );
+    }
+    return (<Redirect to={`/node/${this.props.node.id}/contracts`}/>);
+  }
+
 }
 
 interface OwnProps {

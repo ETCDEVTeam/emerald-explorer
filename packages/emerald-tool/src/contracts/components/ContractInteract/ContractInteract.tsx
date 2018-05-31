@@ -1,24 +1,22 @@
 import * as React from 'react';
 import { Select, TextField } from 'material-ui';
 import { Card, CardActions, CardContent, Button, MenuItem } from 'material-ui';
-import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../store/contracts/model';
-import { Node } from '../../store/nodes/model';
-// import { required, number } from '../validators';
-import { callContract } from './utils';
+import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../model';
+import { OutputValue } from 'emerald-js/src/contracts';
 
-interface AbiFunctionInputValue {
+export interface AbiFunctionInputValue {
   value?: string;
 }
 
-interface AbiFunctionOutputValue {
+export interface AbiFunctionOutputValue {
   value?: string;
 }
 
-type Input = AbiFunctionInput & AbiFunctionInputValue;
+export type Input = AbiFunctionInput & AbiFunctionInputValue;
 
-type Output = AbiFunctionOutput & AbiFunctionOutputValue;
+export type Output = AbiFunctionOutput & AbiFunctionOutputValue;
 
-interface State {
+export interface State {
   function?: AbiFunction;
   inputs: Array<Input>;
   outputs: Array<Output>;
@@ -27,10 +25,14 @@ interface State {
   gas?: string;
 }
 
-interface Props {
+export interface Props {
   contract: Contract;
-  node: Node;
   onSubmit?: () => void;
+  
+  /**
+   * This handler should eth_call smart contract's method
+   */
+  onCall?: (contractAddress: string, func: AbiFunction, inputs: {}) => Promise<OutputValue[]>;
 }
 
 class ContractInteract extends React.Component<Props, State> {
@@ -106,7 +108,7 @@ class ContractInteract extends React.Component<Props, State> {
         Expect return value of executed contract
         Display decoded output params
     */
-  onCallContract = () => {
+  handleContractCall = () => {
     const args = this.state.inputs.reduce(
       (res, input) => {
         res[input.name] = input.value;
@@ -116,7 +118,8 @@ class ContractInteract extends React.Component<Props, State> {
 
     const address = this.props.contract.address;
 
-    callContract(this.props.node.rpc!, address, this.state.function!, args)
+    if (this.props.onCall) {
+      this.props.onCall(address, this.state.function!, args)
       .then((result) => {
         if (result.length > 0) {
           this.setState({
@@ -125,6 +128,7 @@ class ContractInteract extends React.Component<Props, State> {
           });
         }
       });
+    }
   }
 
   render() {
@@ -220,7 +224,7 @@ class ContractInteract extends React.Component<Props, State> {
         <CardActions>
           {func && func.constant &&
             <Button
-              onClick={this.onCallContract}
+              onClick={this.handleContractCall}
             >
             Call
             </Button>}

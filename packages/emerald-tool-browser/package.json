@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "bignumber.js": "^7.0.1",
-    "emerald-js": "git+https://github.com/ETCDEVTeam/emerald-js.git#v0.1.2",
+    "emerald-js": "git+https://github.com/ETCDEVTeam/emerald-js.git",
     "emerald-js-ui": "https://github.com/gagarin55/emerald-js-ui.git#typings",
     "emerald-tool": "^0.1.0",
     "ethereumjs-abi": "^0.6.5",

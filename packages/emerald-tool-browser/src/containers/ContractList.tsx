@@ -9,6 +9,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import { Navigation, AddContract } from 'emerald-tool';
 import * as actions from '../store/contracts/actions';
 import { history } from '../store';
+import CompileSolidity from './CompileSolidity';
 
 interface ContractListContainerProps {
   navigation: Navigation;
@@ -34,6 +35,7 @@ class ContractListContainer extends React.Component<ContractListContainerProps> 
           onAddContract={handleAddContract}
           onDeployNewContract={this.deployNewContractHandler}
         />
+        <CompileSolidity node={node} />
       </React.Fragment>
     );
   }

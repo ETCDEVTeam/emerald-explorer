@@ -1885,9 +1885,9 @@ elliptic@^6.0.0, elliptic@^6.2.3:
     react-dom "^16.2.0"
     react-jss "^8.1.0"
 
-"emerald-js@git+https://github.com/ETCDEVTeam/emerald-js.git#v0.1.2":
-  version "0.1.2"
-  resolved "git+https://github.com/ETCDEVTeam/emerald-js.git#a44c847309e329107f6075a8f8d1f178b6ee5ea2"
+"emerald-js@git+https://github.com/ETCDEVTeam/emerald-js.git":
+  version "0.1.6"
+  resolved "git+https://github.com/ETCDEVTeam/emerald-js.git#fba55332e3f4722ef494d3c8710237dc4314db1a"
   dependencies:
     assert "^1.4.1"
     bignumber.js "^4.0.4"
