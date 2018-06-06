@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import { Button, TextField } from 'material-ui';
-import { ContractInteract } from 'emerald-tool';
-import { Contract, AbiFunction } from '../../store/contracts/model';
 import { OutputValue } from 'emerald-js/src/contracts';
+import ContractInteract from '../ContractInteract';
+import { Contract, AbiFunction } from '../../model';
 
 export interface Props {
   contract: Contract;
