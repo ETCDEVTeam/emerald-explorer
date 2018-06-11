@@ -14,3 +14,4 @@ export {
 export { default as DeployContractWizard } from './contracts/components/DeployContractWizard';
 export { default as ContractInteract } from './contracts/components/ContractInteract';
 export { default as CompileContract } from './contracts/components/CompileContract';
+export { default as ContractView } from './contracts/components/ContractView';

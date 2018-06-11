@@ -5,7 +5,7 @@ import { match } from 'react-router';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { Contract, AbiFunction } from '../store/contracts/model';
-import ContractView from '../components/ContractView';
+import { ContractView } from 'emerald-tool';
 import { EthRpc, contracts } from 'emerald-js';
 import { OutputValue, InputValues } from 'emerald-js/src/contracts';
 
