@@ -14,24 +14,31 @@ import Contract from './containers/Contract';
 import DeployContract from './containers/DeployContract';
 import { history } from './store';
 
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+const theme = createMuiTheme({
+  palette: {}
+});
+
 class App extends React.Component {
 
   render() {
     return (
       <div className="App">
-        <Header />
-        <ConnectedRouter history={history}>
-          <Switch>
-            <Route exact={true} path="/" component={Dashboard} />
-            <Route path="/node/:id/contracts/deploy" component={DeployContract} />
-            <Route path="/node/:id/contracts/:address" component={Contract} />
-            <Route path="/node/:id/contracts" component={ContractList} />
-            <Route path="/node/:id/block/:hash" component={Block} />
-            <Route path="/node/:id/tx/:hash" component={Transaction} />
-            <Route path="/node/:id/address/:hex" component={Address} />
-            <Route path="/node/:id" component={NodeView} />
-          </Switch>
-        </ConnectedRouter>
+        <MuiThemeProvider theme={theme}>
+          <Header />
+          <ConnectedRouter history={history}>
+            <Switch>
+              <Route exact={true} path="/" component={Dashboard} />
+              <Route path="/node/:id/contracts/deploy" component={DeployContract} />
+              <Route path="/node/:id/contracts/:address" component={Contract} />
+              <Route path="/node/:id/contracts" component={ContractList} />
+              <Route path="/node/:id/block/:hash" component={Block} />
+              <Route path="/node/:id/tx/:hash" component={Transaction} />
+              <Route path="/node/:id/address/:hex" component={Address} />
+              <Route path="/node/:id" component={NodeView} />
+            </Switch>
+          </ConnectedRouter>
+        </MuiThemeProvider>
       </div>
     );
   }

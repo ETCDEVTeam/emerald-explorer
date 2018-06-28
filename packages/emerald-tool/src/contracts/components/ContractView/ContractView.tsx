@@ -1,6 +1,10 @@
 import * as React from 'react';
-import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import { Button, TextField } from 'material-ui';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 import { OutputValue } from 'emerald-js/src/contracts';
 import ContractInteract from '../ContractInteract';
 import { Contract, AbiFunction } from '../../model';

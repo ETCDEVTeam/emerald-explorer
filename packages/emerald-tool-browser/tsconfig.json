@@ -12,10 +12,11 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
+    "baseUrl": ".",
     "typeRoots": ["node_modules/@types", "custom_typings"]
   },
   "exclude": [

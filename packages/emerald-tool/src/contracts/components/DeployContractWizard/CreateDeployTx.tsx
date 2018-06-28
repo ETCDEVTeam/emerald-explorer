@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { TextField, Button } from 'material-ui';
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 import { Wallet } from 'emerald-js';
 
 export interface Props {
@@ -20,15 +23,14 @@ export interface State {
 }
 
 class CreateDeployTx extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      privKey: '',
-      byteCode: '',
-      gasPrice: this.props.gasPrice,
-      gas: 30000,
-      nonce: 0,
-    };
+  state = {
+    privKey: '',
+    byteCode: '',
+    gasPrice: this.props.gasPrice,
+    gas: 30000,
+    nonce: 0,
+    from: undefined,
+    error: undefined
   }
 
   estimateGas = async () => {

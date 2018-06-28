@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from 'material-ui';
+import Button from '@material-ui/core/Button';
 
 export interface Props {
   signedTx: string;

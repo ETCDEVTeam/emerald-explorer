@@ -6,6 +6,8 @@ import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import BlockList from './BlockList';
 import Breadcrumbs from '../components/Breadcrumbs';
+import Page from 'emerald-js-ui/lib/components/Page';
+console.log('MPAge', Page);
 
 interface Props {
   node: Node;
@@ -19,9 +21,9 @@ function NodeView(props: Props) {
       <Breadcrumbs />
       <div><Link to={`/node/${props.node.id}/contracts`}>Contracts</Link></div>
       <div>Node ID: {props.node.id}</div>
-      <div>
+      <Page title="fooBar">
         <BlockList node={props.node} from={from} to={to} />
-      </div>
+      </Page>
     </div>);
 }
 
