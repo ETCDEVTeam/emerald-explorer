@@ -682,7 +682,7 @@ big.js@^3.1.3:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.2.0.tgz#a5fc298b81b9e0dca2e458824784b65c52ba588e"
 
-bignumber.js@^4.0.4:
+bignumber.js@4.1.0, bignumber.js@^4.0.4:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-4.1.0.tgz#db6f14067c140bd46624815a7916c92d9b6c24b1"
 
@@ -1278,6 +1278,10 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
+colors@*:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.1.tgz#4accdb89cf2cabc7f982771925e9468784f32f3d"
+
 colors@0.5.x:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/colors/-/colors-0.5.1.tgz#7d0023eaeb154e8ee9fce75dcb923d0ed1667774"
@@ -1856,6 +1860,10 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+dijkstrajs@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dijkstrajs/-/dijkstrajs-1.0.1.tgz#d3cd81221e3ea40742cfcde556d4e99e98ddc71b"
+
 discontinuous-range@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
@@ -2002,18 +2010,20 @@ elliptic@^6.0.0, elliptic@^6.2.3:
 
 "emerald-js-ui@https://github.com/ETCDEVTeam/emerald-js-ui.git#material-ui-one":
   version "0.0.29"
-  resolved "https://github.com/ETCDEVTeam/emerald-js-ui.git#c2e6dfce9d41a751f8ab386454607e148f5fe391"
+  resolved "https://github.com/ETCDEVTeam/emerald-js-ui.git#ad76cc8f7f22a93578ed3e6b9a71d304fc77acf1"
   dependencies:
     "@material-ui/core" "^1.3.0"
     "@storybook/addon-knobs" "^3.4.7"
     classnames "^2.2.5"
     copy-to-clipboard "^3.0.8"
     emerald-svg-icons "git+https://github.com/ETCDEVTeam/emerald-svg-icons.git#0.0.1"
+    ethereum-qr-code "^0.3.0"
     material-ui "^0.20.0"
     prop-types "^15.6.0"
     react "^16.2.0"
     react-dom "^16.2.0"
     react-jss "^8.1.0"
+    react-required-if "^1.0.3"
     rlp "^2.0.0"
     svgo "^1.0.5"
 
@@ -2263,6 +2273,13 @@ etag@~1.8.1:
 ethereum-common@^0.0.18:
   version "0.0.18"
   resolved "https://registry.yarnpkg.com/ethereum-common/-/ethereum-common-0.0.18.tgz#2fdc3576f232903358976eb39da783213ff9523f"
+
+ethereum-qr-code@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ethereum-qr-code/-/ethereum-qr-code-0.3.0.tgz#fac1d031a847c4f038bd7c6910c6114829edd51a"
+  dependencies:
+    bignumber.js "4.1.0"
+    qrcode "0.9.0"
 
 ethereumjs-abi@^0.6.5:
   version "0.6.5"
@@ -3743,6 +3760,10 @@ isarray@0.0.1:
 isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
+
+isarray@^2.0.1:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.4.tgz#38e7bcbb0f3ba1b7933c86ba1894ddfc3781bbb7"
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -5429,6 +5450,10 @@ pkg-dir@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
+pngjs@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-2.3.1.tgz#11d1e12b9cb64d63e30c143a330f4c1f567da85f"
+
 popper.js@^1.14.1:
   version "1.14.3"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
@@ -5847,6 +5872,15 @@ q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
 
+qrcode@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-0.9.0.tgz#4bdc1d21ad655c3101b5bb29e2e4c9d6416825fb"
+  dependencies:
+    colors "*"
+    dijkstrajs "^1.0.1"
+    isarray "^2.0.1"
+    pngjs "^2.3.1"
+
 qs@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
@@ -6070,6 +6104,10 @@ react-redux@^5.0.7:
     lodash-es "^4.17.5"
     loose-envify "^1.1.0"
     prop-types "^15.6.0"
+
+react-required-if@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-required-if/-/react-required-if-1.0.3.tgz#6a40a761b1d54815c1d4e6610910cbf92b5aa987"
 
 react-router-dom@^4.2.2:
   version "4.2.2"
