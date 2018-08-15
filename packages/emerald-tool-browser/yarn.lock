@@ -2010,7 +2010,7 @@ elliptic@^6.0.0, elliptic@^6.2.3:
 
 "emerald-js-ui@https://github.com/ETCDEVTeam/emerald-js-ui.git#material-ui-one":
   version "0.0.29"
-  resolved "https://github.com/ETCDEVTeam/emerald-js-ui.git#ad76cc8f7f22a93578ed3e6b9a71d304fc77acf1"
+  resolved "https://github.com/ETCDEVTeam/emerald-js-ui.git#dbcaeb05f8cd79887a1189c86620490fb6da98fb"
   dependencies:
     "@material-ui/core" "^1.3.0"
     "@storybook/addon-knobs" "^3.4.7"
