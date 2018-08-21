@@ -13,42 +13,34 @@ import Contract from './containers/Contract';
 import DeployContract from './containers/DeployContract';
 import { history } from './store';
 
-import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
-import { AppBar } from 'emerald-js-ui';
-import theme from 'emerald-js-ui/lib/theme';
+import { AppBar, NetworkSelector, EmeraldProvider } from 'emerald-js-ui';
 
-class App extends React.Component<theme> {
+class App extends React.Component {
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <EmeraldProvider>
         <div>
           <div>
-            <AppBar
-              title="Emerald Tool"
-              subtitle="wut"
-              blockNumber="7331"
-              fiatBalance="200"
-              fiatSymbol="USD"
-              balance="20"
-              symbol="ETC"
-            />
+            <AppBar title="Emerald" subtitle="Tool">
+              <NetworkSelector />
+            </AppBar>
           </div>
           <div style={{ margin: '20px' }}>
             <ConnectedRouter history={history}>
               <Switch>
                 <Route exact={true} path="/" component={Dashboard} />
-                <Route path="/node/:id/contracts/deploy" component={DeployContract} />
-                <Route path="/node/:id/contracts/:address" component={Contract} />
-                <Route path="/node/:id/contracts" component={ContractList} />
-                <Route path="/node/:id/block/:hash" component={Block} />
-                <Route path="/node/:id/tx/:hash" component={Transaction} />
-                <Route path="/node/:id/address/:hex" component={Address} />
-                <Route path="/node/:id" component={NodeView} />
+                <Route path="/contracts/deploy" component={DeployContract} />
+                <Route path="/contracts/:address" component={Contract} />
+                <Route path="/contracts" component={ContractList} />
+                <Route path="/block/:hash" component={Block} />
+                <Route path="/blocks" component={NodeView} />
+                <Route path="/tx/:hash" component={Transaction} />
+                <Route path="/address/:address" component={Address} />
               </Switch>
             </ConnectedRouter>
           </div>
         </div>
-      </MuiThemeProvider>
+      </EmeraldProvider>
     );
   }
 }

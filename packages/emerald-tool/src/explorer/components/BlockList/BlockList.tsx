@@ -10,22 +10,9 @@ import TableRow from '@material-ui/core/TableRow';
 
 export interface BlockListProps {
   blocks: Array<BlockWithoutTxData>;
-  nodeId: string;
 }
 
-function ListItem(props: { block: BlockWithoutTxData; nodeId: string; }) {
-  const { block, nodeId } = props;
-  return (
-    <tr>
-      <td>{block.number}</td>
-      <td></td>
-      <td>{block.timestamp}</td>
-      <td>{block.transactions.length}</td>
-    </tr>);
-}
-
-function BlockList(props: BlockListProps) {
-  const { blocks, nodeId } = props;
+function BlockList({ blocks }: BlockListProps) {
   return (
     <Table>
       <TableHead>
@@ -41,14 +28,15 @@ function BlockList(props: BlockListProps) {
           return (
               <TableRow key={b.number!}>
                 <TableCell component="th" scope="row">{b.number}</TableCell>
-                <TableCell><Link to={`/node/${nodeId}/block/${b.hash}`}>{b.hash}</Link></TableCell>
+                <TableCell><Link to={`/block/${b.hash}`}>{b.hash}</Link></TableCell>
                 <TableCell>{b.timestamp}</TableCell>
                 <TableCell>{b.transactions.length}</TableCell>
               </TableRow>
           );
         })}
       </TableBody>
-    </Table>);
+    </Table>
+  );
 }
 
 export default BlockList;

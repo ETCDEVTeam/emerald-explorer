@@ -5,51 +5,23 @@ import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { BlockWithTxData } from 'emerald-js';
 import { BlockView } from 'emerald-tool';
+import { Page, EthRpc } from 'emerald-js-ui';
 
 interface Props {
-  node: Node;
-  hash: string;
+  match: { params: { hash: string } };
 }
 
-interface State {
-  block: BlockWithTxData | null;
-}
-
-class Block extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      block: null,
-    };
-  }
-
-  async componentWillMount() {
-    const { node, hash } = this.props;
-    const block = await  node.rpc!.eth.getBlock(hash, true);
-    this.setState({
-      block: block
-    });
-  }
-
+class Block extends React.Component<Props> {
   render() {
-    const { block } = this.state;
-    const baseUrl = `/node/${this.props.node.id!}`;
+    const { hash } = this.props.match.params;
     return (
-      <div>
-        <BlockView block={block!} baseUrl={baseUrl}/>
-      </div>
-    ); 
+      <Page title="Block View">
+        <EthRpc method="eth.getBlock" params={[hash, true]}>
+          {block => (<BlockView block={block} />)}
+        </EthRpc>
+      </Page>
+    );
   }
 }
 
-interface OwnProps {
-  match: match<{ [key: string]: string }>;
-}
-
-const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-  node: state.nodes.nodes.find(n => n.id === ownProps.match.params.id),
-  hash: ownProps.match.params.hash,
-});
-
-export default (connect(mapStateToProps)(Block));
+export default Block;

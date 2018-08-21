@@ -5,53 +5,26 @@ import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { Transaction, TransactionReceipt } from 'emerald-js';
 import { TxView } from 'emerald-tool';
+import { EthRpc } from 'emerald-js-ui';
 
 interface Props {
-  node: Node;
-  hash: string;
+  match: { params: { hash: string } };
 }
 
-interface State {
-  tx: Transaction | null;
-  receipt: TransactionReceipt | null;
-}
-
-class TransactionContainer extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      tx: null,
-      receipt: null,
-    };
-  }
-
-  async componentWillMount() {
-    const { node, hash } = this.props;
-    const tx = await node.rpc!.eth.getTransaction(hash);
-    const receipt = await node.rpc!.eth.getTransactionReceipt(hash);
-    this.setState({
-      tx: tx,
-      receipt: receipt,
-    });
-  }
-
+class TransactionContainer extends React.Component<Props> {
   render() {
-    const { tx, receipt } = this.state;
-    const baseUrl = `/node/${this.props.node.id!}`;
+    const {hash} = this.props.match.params;
+
     return (
-        <TxView tx={tx!} receipt={receipt} baseUrl={baseUrl}/>
-    ); 
+      <EthRpc method="eth.getTransaction" params={[hash]}>
+        {transaction => (
+          <EthRpc method="eth.getTransactionReceipt" params={[hash]}>
+            {receipt => (<TxView tx={transaction} receipt={receipt} />)}
+          </EthRpc>
+        )}
+      </EthRpc>
+    );
   }
 }
 
-interface OwnProps {
-  match: match<{ [key: string]: string }>;
-}
-
-const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-  node: state.nodes.nodes.find(n => n.id === ownProps.match.params.id),
-  hash: ownProps.match.params.hash,
-});
-
-export default (connect(mapStateToProps)(TransactionContainer));
+export default TransactionContainer;

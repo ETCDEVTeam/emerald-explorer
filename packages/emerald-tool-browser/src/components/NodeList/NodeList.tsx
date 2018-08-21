@@ -27,7 +27,7 @@ function NodeList(props: Props) {
           <div>chain id: {n.chainId}</div>
           <div>{n.error && <span color="red">{n.error}</span>}</div>
           <div>
-            <Link to={'/node/' + n.id} >View</Link>
+            <Link to={'/blocks'} >View</Link>
           </div>
         </div>
 
