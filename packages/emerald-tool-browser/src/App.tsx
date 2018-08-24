@@ -8,10 +8,9 @@ import Header from './components/Header';
 import Block from './containers/Block';
 import Address from './containers/Address';
 import Transaction from './containers/Transaction';
-import ContractList from './containers/ContractList';
-import Contract from './containers/Contract';
-import DeployContract from './containers/DeployContract';
+
 import { history } from './store';
+
 import Page from 'emerald-js-ui/lib/components/Page';
 import Back from 'emerald-js-ui/lib/icons3/Back';
 
