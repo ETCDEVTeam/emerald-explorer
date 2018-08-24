@@ -7,24 +7,16 @@ import { Transaction, TransactionReceipt } from 'emerald-js';
 import { TxView } from 'emerald-tool';
 import { EthRpc } from 'emerald-js-ui';
 
-interface Props {
-  match: { params: { hash: string } };
+export default function TransactionContainer(props: any) {
+  const {hash} = props.match.params;
+
+  return (
+    <EthRpc method="eth.getTransaction" params={[hash]}>
+      {transaction => (
+        <EthRpc method="eth.getTransactionReceipt" params={[hash]}>
+          {receipt => (<TxView tx={transaction} receipt={receipt} />)}
+        </EthRpc>
+      )}
+    </EthRpc>
+  );
 }
-
-class TransactionContainer extends React.Component<Props> {
-  render() {
-    const {hash} = this.props.match.params;
-
-    return (
-      <EthRpc method="eth.getTransaction" params={[hash]}>
-        {transaction => (
-          <EthRpc method="eth.getTransactionReceipt" params={[hash]}>
-            {receipt => (<TxView tx={transaction} receipt={receipt} />)}
-          </EthRpc>
-        )}
-      </EthRpc>
-    );
-  }
-}
-
-export default TransactionContainer;

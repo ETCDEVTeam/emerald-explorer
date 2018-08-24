@@ -12,8 +12,21 @@ import ContractList from './containers/ContractList';
 import Contract from './containers/Contract';
 import DeployContract from './containers/DeployContract';
 import { history } from './store';
+import Page from 'emerald-js-ui/lib/components/Page';
+import Back from 'emerald-js-ui/lib/icons3/Back';
 
 import { AppBar, NetworkSelector, EmeraldProvider } from 'emerald-js-ui';
+
+const routes = [
+  { path: '/', component: Dashboard, title: 'Dashboard', exact: true },
+  // { path: '/contracts/deploy', component: DeployContract, title: 'Deploy Contract' },
+  // { path: '/contracts/:address', component: Contract, title: 'Contract' },
+  // { path: '/contracts', component: ContractList, title: 'Display Contract' },
+  { path: '/block/:hash', component: Block, title: 'Block' },
+  { path: '/blocks', component: NodeView, title: 'Latest Blocks' },
+  { path: '/tx/:hash', component: Transaction, title: 'Transaction Details' },
+  { path: '/address/:address', component: Address, title: 'Address Details' },
+];
 
 class App extends React.Component {
   render() {
@@ -28,14 +41,17 @@ class App extends React.Component {
           <div style={{ margin: '20px' }}>
             <ConnectedRouter history={history}>
               <Switch>
-                <Route exact={true} path="/" component={Dashboard} />
-                <Route path="/contracts/deploy" component={DeployContract} />
-                <Route path="/contracts/:address" component={Contract} />
-                <Route path="/contracts" component={ContractList} />
-                <Route path="/block/:hash" component={Block} />
-                <Route path="/blocks" component={NodeView} />
-                <Route path="/tx/:hash" component={Transaction} />
-                <Route path="/address/:address" component={Address} />
+                {
+                  routes.map((routeProps, i) => {
+                    var wrapped = (props) => (
+                      <Page title={routeProps.title} leftIcon={<Back onClick={history.goBack} />}>
+                        {routeProps.component({ ...props, history })}
+                      </Page>
+                    );
+
+                    return (<Route key={i} path={routeProps.path} component={wrapped} exact={routeProps.exact} />);
+                  })
+                }
               </Switch>
             </ConnectedRouter>
           </div>

@@ -14,15 +14,11 @@ interface Props {
   history: { goBack: () => any };
 }
 
-export default withRouter(function NodeView(props: Props) {
+export default function NodeView(props: any) {
   const { history } = props;
   return (
-    <div>
-      <Page title="fooBar" leftIcon={<Back onClick={history.goBack} />}>
-        <EthRpc method="eth.getBlockNumber">
-          {blockNumber => (<BlockList from={Math.max(blockNumber - 15, 0)} to={blockNumber} />)}
-        </EthRpc>
-      </Page>
-    </div>
+    <EthRpc method="eth.getBlockNumber">
+      {blockNumber => (<BlockList from={Math.max(blockNumber - 15, 0)} to={blockNumber} />)}
+    </EthRpc>
   );
-});
+}

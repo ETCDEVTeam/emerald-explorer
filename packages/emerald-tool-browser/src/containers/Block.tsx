@@ -6,22 +6,13 @@ import { Node } from '../store/nodes/model';
 import { BlockWithTxData } from 'emerald-js';
 import { BlockView } from 'emerald-tool';
 import { Page, EthRpc } from 'emerald-js-ui';
+import Back from 'emerald-js-ui/lib/icons3/Back';
 
-interface Props {
-  match: { params: { hash: string } };
+export default function Block(props: any) {
+  const { history: { goBack }, match: { params: { hash } } } = props;
+  return (
+    <EthRpc method="eth.getBlock" params={[hash, true]}>
+      {block => (<BlockView block={block} />)}
+    </EthRpc>
+  );
 }
-
-class Block extends React.Component<Props> {
-  render() {
-    const { hash } = this.props.match.params;
-    return (
-      <Page title="Block View">
-        <EthRpc method="eth.getBlock" params={[hash, true]}>
-          {block => (<BlockView block={block} />)}
-        </EthRpc>
-      </Page>
-    );
-  }
-}
-
-export default Block;
