@@ -1,13 +1,5 @@
 import * as React from 'react';
-import { match } from 'react-router';
-import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { AppState } from '../store/types';
-import { Node } from '../store/nodes/model';
 import BlockList from './BlockList';
-import Breadcrumbs from '../components/Breadcrumbs';
-import Page from 'emerald-js-ui/lib/components/Page';
-import Back from 'emerald-js-ui/lib/icons3/Back';
 import { EthRpc } from 'emerald-js-ui';
 
 interface Props {

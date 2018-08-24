@@ -1,8 +1,4 @@
 import * as React from 'react';
-import { match } from 'react-router';
-import { connect } from 'react-redux';
-import { AppState } from '../store/types';
-import { Node } from '../store/nodes/model';
 import { AddressView } from 'emerald-tool';
 import Wei from 'emerald-js/lib/wei';
 import { EthRpc } from 'emerald-js-ui';

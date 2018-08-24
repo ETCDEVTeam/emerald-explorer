@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BlockWithoutTxData } from 'emerald-js';
-import { Node } from '../store/nodes/model';
 import { BlockList } from 'emerald-tool';
 import { EthRpc } from 'emerald-js-ui';
 
