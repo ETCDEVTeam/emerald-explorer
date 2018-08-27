@@ -8,47 +8,54 @@ import Header from './components/Header';
 import Block from './containers/Block';
 import Address from './containers/Address';
 import Transaction from './containers/Transaction';
-import ContractList from './containers/ContractList';
-import Contract from './containers/Contract';
-import DeployContract from './containers/DeployContract';
+
 import { history } from './store';
 
-import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
-import { AppBar } from 'emerald-js-ui';
-import theme from 'emerald-js-ui/lib/theme';
+import Page from 'emerald-js-ui/lib/components/Page';
+import Back from 'emerald-js-ui/lib/icons3/Back';
 
-class App extends React.Component<theme> {
+import { AppBar, NetworkSelector, EmeraldProvider } from 'emerald-js-ui';
+
+const routes = [
+  { path: '/', component: Dashboard, title: 'Dashboard', exact: true },
+  // { path: '/contracts/deploy', component: DeployContract, title: 'Deploy Contract' },
+  // { path: '/contracts/:address', component: Contract, title: 'Contract' },
+  // { path: '/contracts', component: ContractList, title: 'Display Contract' },
+  { path: '/block/:hash', component: Block, title: 'Block' },
+  { path: '/blocks', component: NodeView, title: 'Latest Blocks' },
+  { path: '/tx/:hash', component: Transaction, title: 'Transaction Details' },
+  { path: '/address/:address', component: Address, title: 'Address Details' },
+];
+
+class App extends React.Component {
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <EmeraldProvider>
         <div>
           <div>
-            <AppBar
-              title="Emerald Tool"
-              subtitle="wut"
-              blockNumber="7331"
-              fiatBalance="200"
-              fiatSymbol="USD"
-              balance="20"
-              symbol="ETC"
-            />
+            <AppBar title="Emerald" subtitle="Tool">
+              <NetworkSelector />
+            </AppBar>
           </div>
           <div style={{ margin: '20px' }}>
             <ConnectedRouter history={history}>
               <Switch>
-                <Route exact={true} path="/" component={Dashboard} />
-                <Route path="/node/:id/contracts/deploy" component={DeployContract} />
-                <Route path="/node/:id/contracts/:address" component={Contract} />
-                <Route path="/node/:id/contracts" component={ContractList} />
-                <Route path="/node/:id/block/:hash" component={Block} />
-                <Route path="/node/:id/tx/:hash" component={Transaction} />
-                <Route path="/node/:id/address/:hex" component={Address} />
-                <Route path="/node/:id" component={NodeView} />
+                {
+                  routes.map((routeProps, i) => {
+                    var wrapped = (props) => (
+                      <Page title={routeProps.title} leftIcon={<Back onClick={history.goBack} />}>
+                        {routeProps.component({ ...props, history })}
+                      </Page>
+                    );
+
+                    return (<Route key={i} path={routeProps.path} component={wrapped} exact={routeProps.exact} />);
+                  })
+                }
               </Switch>
             </ConnectedRouter>
           </div>
         </div>
-      </MuiThemeProvider>
+      </EmeraldProvider>
     );
   }
 }

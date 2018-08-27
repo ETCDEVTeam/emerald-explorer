@@ -4,7 +4,6 @@ import { match } from 'react-router';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { DeployContractWizard } from 'emerald-tool';
-import Breadcrumbs from '../components/Breadcrumbs';
 
 interface Props {
   node: Node;
@@ -35,7 +34,6 @@ class DeployContractContainer extends React.PureComponent<Props> {
     const gasPrice = node && node.gasPrice ? node.gasPrice.toNumber() : 0;
     return (
       <React.Fragment>
-      <Breadcrumbs nodeId={node.id} />
       <DeployContractWizard
         onEstimateGas={this.estimateGas}
         onGetAccountNonce={this.getAccountNonce}

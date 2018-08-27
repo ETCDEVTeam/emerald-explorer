@@ -2,160 +2,206 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Transaction, TransactionReceipt } from 'emerald-js';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 export interface TxViewProps {
   tx: Transaction;
   receipt: TransactionReceipt | null;
-  baseUrl: string;
 }
 
-function renderTxTable(tx: Transaction, receipt: TransactionReceipt | null, baseUrl: string) {
+function renderTxTable(tx: Transaction, receipt: TransactionReceipt | null) {
   return (
     <div>
       <div>General</div>
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <td>Hash</td><td>{tx.hash}</td>
-            </tr>
-            <tr>
-              <td>Block</td>
-              <td><Link to={`${baseUrl}/block/${tx.blockHash}`}>{tx.blockHash}</Link></td>
-            </tr>
-            <tr>
-              <td>Block number</td>
-              <td>{tx.blockNumber}</td>
-            </tr>
-            <tr>
-              <td>Gas</td><td>{tx.gas}</td>
-            </tr>
-            <tr>
-              <td>Gas Price</td><td>{tx.gasPrice.toString()}</td>
-            </tr>
-            <tr>
-              <td>Value</td><td>{tx.value.toString()}</td>
-            </tr>
-            <tr>
-              <td>From</td>
-              <td><Link to={`${baseUrl}/address/${tx.from}`}>{tx.from}</Link></td>
-            </tr>
-            <tr>
-              <td>To</td>
-              <td><Link to={`${baseUrl}/address/${tx.to}`}>{tx.to}</Link></td>
-            </tr>
-            <tr>
-              <td>Nonce</td>
-              <td>{tx.nonce}</td>
-            </tr>
-            <tr>
-              <td>TransactionIndex</td>
-              <td>{tx.transactionIndex}</td>
-            </tr>
-            <tr>
-              <td>Input</td>
-              <td>{tx.input}</td>
-            </tr>
-            <tr>
-              <td>ReplayProtected</td>
-              <td>{tx.replayProtected && tx.replayProtected.toString()}</td>
-            </tr>
-            <tr>
-              <td>v</td>
-              <td>{tx.v}</td>
-            </tr>
-            <tr>
-              <td>r</td>
-              <td>{tx.r}</td>
-            </tr>
-            <tr>
-              <td>s</td>
-              <td>{tx.s}</td>
-            </tr>
-          </tbody>
-        </table>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell>Hash</TableCell>
+            <TableCell>{tx.hash}</TableCell>
+          </TableRow>
 
-      </div>
+          <TableRow>
+            <TableCell>Block</TableCell>
+            <TableCell>
+              <Link to={`/block/${tx.blockHash}`}>{tx.blockHash}</Link>
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Block number</TableCell>
+            <TableCell>{tx.blockNumber}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Gas</TableCell>
+            <TableCell>{tx.gas}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Gas Price</TableCell>
+            <TableCell>{tx.gasPrice.toString()}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Value</TableCell>
+            <TableCell>{tx.value.toString()}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>From</TableCell>
+            <TableCell>
+              <Link to={`/address/${tx.from}`}>{tx.from}</Link>
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>To</TableCell>
+            <TableCell><Link to={`/address/${tx.to}`}>{tx.to}</Link></TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Nonce</TableCell>
+            <TableCell>{tx.nonce}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Transaction Index</TableCell>
+            <TableCell>{tx.transactionIndex}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Input</TableCell>
+            <TableCell>{tx.input}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>ReplayProtected</TableCell>
+            <TableCell>{tx.replayProtected && tx.replayProtected.toString()}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>v</TableCell>
+            <TableCell>{tx.v}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>r</TableCell>
+            <TableCell>{tx.r}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>s</TableCell>
+            <TableCell>{tx.s}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+
       <div>Receipt</div>
-      <div>
-        {receipt &&
-          <table>
-            <tbody>
-              <tr>
-                <td>Hash</td><td>{receipt.transactionHash}</td>
-              </tr>
-              <tr>
-                <td>Block</td>
-                <td><Link to={`${baseUrl}/block/${receipt.blockHash}`}>{receipt.blockHash}</Link></td>
-              </tr>
-              <tr>
-                <td>Block number</td>
-                <td>{receipt.blockNumber}</td>
-              </tr>
-              <tr>
-                <td>Gas Used</td><td>{receipt.gasUsed}</td>
-              </tr>
-              <tr>
-                <td>Cumulative Gas Used</td><td>{receipt.cumulativeGasUsed}</td>
-              </tr>
-              <tr>
-                <td>Value</td><td>{tx.value.toString()}</td>
-              </tr>
-              <tr>
-                <td>From</td>
-                <td><Link to={`${baseUrl}/address/${receipt.from}`}>{receipt.from}</Link></td>
-              </tr>
-              <tr>
-                <td>To</td>
-                <td><Link to={`${baseUrl}/address/${receipt.to}`}>{receipt.to}</Link></td>
-              </tr>
-              <tr>
-                <td>Contract Address</td>
-                <td>{receipt.contractAddress}</td>
-              </tr>
-              <tr>
-                <td>TransactionIndex</td>
-                <td>{receipt.transactionIndex}</td>
-              </tr>
-              <tr>
-                <td>Status</td>
-                <td>{receipt.status}</td>
-              </tr>
-              <tr>
-                <td>Logs</td>
-                <td><textarea>{receipt.logs}</textarea></td>
-              </tr>
-            </tbody>
-          </table>
-        }
-      </div>
+      {receipt &&
+       <Table>
+         <TableBody>
+           <TableRow>
+             <TableCell>Hash</TableCell>
+             <TableCell>{receipt.transactionHash}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>Block</TableCell>
+             <TableCell>
+               <Link to={`/block/${receipt.blockHash}`}>{receipt.blockHash}</Link>
+             </TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>Block number</TableCell>
+             <TableCell>{receipt.blockNumber}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>Gas Used</TableCell>
+             <TableCell>{receipt.gasUsed}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>Cumulative Gas Used</TableCell>
+             <TableCell>{receipt.cumulativeGasUsed}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>Value</TableCell>
+             <TableCell>{tx.value.toString()}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>From</TableCell>
+             <TableCell>
+               <Link to={`/address/${receipt.from}`}>{receipt.from}</Link>
+             </TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>To</TableCell>
+             <TableCell>
+               <Link to={`/address/${receipt.to}`}>{receipt.to}</Link>
+             </TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>ConTableRowact Address</TableCell>
+             <TableCell>{receipt.contractAddress}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>TableRowansactionIndex</TableCell>
+             <TableCell>{receipt.transactionIndex}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>Status</TableCell>
+             <TableCell>{receipt.status}</TableCell>
+           </TableRow>
+
+           <TableRow>
+             <TableCell>Logs</TableCell>
+             <TableCell>
+               <textarea>{receipt.logs}</textarea>
+             </TableCell>
+           </TableRow>
+         </TableBody>
+       </Table>
+      }
     </div>
   );
 }
 
 function TxView(props: TxViewProps) {
-  const { tx, receipt, baseUrl } = props;
+  const { tx, receipt } = props;
   if (!tx) {
     return null;
   }
 
   return (
     <div>
+      <div>
+        {renderTxTable(tx, receipt)}
+      </div>
+      <div>
         <div>
-          {renderTxTable(tx, receipt, baseUrl)}
+          <textarea>
+            {JSON.stringify(tx)}
+          </textarea>
         </div>
         <div>
-          <div>
-            <textarea>
-              {JSON.stringify(tx)}
-            </textarea>
-          </div>
-          <div>
-            <textarea>
-              {JSON.stringify(receipt)}
-            </textarea>
-          </div>
+          <textarea>
+            {JSON.stringify(receipt)}
+          </textarea>
         </div>
-        </div>
+      </div>
+    </div>
   );
 }
 

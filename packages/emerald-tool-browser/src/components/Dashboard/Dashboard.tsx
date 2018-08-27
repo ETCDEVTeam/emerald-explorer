@@ -1,17 +1,10 @@
 import * as React from 'react';
 
-import NodeList from '../../containers/NodeList';
 import { Page } from 'emerald-js-ui';
 
-export interface Props {
-
-}
-
-function Dashboard(props: Props) {
+function Dashboard(props: any) {
   return (
-    <Page title="Dashboard">
-      <NodeList />
-    </Page>
+    <div>hello world</div>
   );
 }
 

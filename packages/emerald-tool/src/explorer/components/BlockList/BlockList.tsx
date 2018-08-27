@@ -7,48 +7,41 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Typography } from '@material-ui/core';
 
 export interface BlockListProps {
   blocks: Array<BlockWithoutTxData>;
-  nodeId: string;
 }
 
-function ListItem(props: { block: BlockWithoutTxData; nodeId: string; }) {
-  const { block, nodeId } = props;
-  return (
-    <tr>
-      <td>{block.number}</td>
-      <td></td>
-      <td>{block.timestamp}</td>
-      <td>{block.transactions.length}</td>
-    </tr>);
-}
-
-function BlockList(props: BlockListProps) {
-  const { blocks, nodeId } = props;
+function BlockList({ blocks }: BlockListProps) {
   return (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>#</TableCell>
-          <TableCell>Hash</TableCell>
-          <TableCell>Timestamp</TableCell>
-          <TableCell>Txs</TableCell>
+          <TableCell><Typography>#</Typography></TableCell>
+          <TableCell><Typography>Hash</Typography></TableCell>
+          <TableCell><Typography>Timestamp</Typography></TableCell>
+          <TableCell><Typography>Txs</Typography></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {blocks.map(b => {
-          return (
-              <TableRow key={b.number!}>
-                <TableCell component="th" scope="row">{b.number}</TableCell>
-                <TableCell><Link to={`/node/${nodeId}/block/${b.hash}`}>{b.hash}</Link></TableCell>
-                <TableCell>{b.timestamp}</TableCell>
-                <TableCell>{b.transactions.length}</TableCell>
-              </TableRow>
-          );
+           return (
+             <TableRow key={b.number!}>
+               <TableCell component="th" scope="row"><Typography>{b.number}</Typography></TableCell>
+                 <TableCell><Link to={`/block/${b.hash}`}>{b.hash}</Link></TableCell>
+                 <TableCell>
+                   <Typography>{b.timestamp}</Typography>
+                 </TableCell>
+                 <TableCell>
+                   <Typography>{b.transactions.length}</Typography>
+                 </TableCell>
+             </TableRow>
+           );
         })}
       </TableBody>
-    </Table>);
+    </Table>
+  );
 }
 
 export default BlockList;
