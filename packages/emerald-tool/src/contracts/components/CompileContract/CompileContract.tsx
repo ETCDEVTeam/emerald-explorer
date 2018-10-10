@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { TextField, Button } from 'material-ui';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export interface Props {
   onCompile?: (code: string) => void;
@@ -11,13 +12,9 @@ export interface State {
 
 export class CompileContract extends React.Component<Props, State> {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      code: '',
-    };
+  state = {
+    code: '',
   }
-
 
   handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({

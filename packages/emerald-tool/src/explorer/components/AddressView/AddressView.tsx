@@ -5,21 +5,21 @@ export interface AddressViewProps {
   balance: string;
   txCount: number;
   code: string;
-  baseUrl: string;
 }
 
 function renderGeneral(props: AddressViewProps) {
   const { address, balance, txCount, code } = props;
+  console.log(address, balance, txCount, code)
   return (
     <div>
-    <div>Balance: {balance}</div>
-    <div>Tx count: {txCount}</div>
-    <div>{address}</div>
-    <div>Code</div>
-    <div>
+      <div>Balance: {balance}</div>
+      <div>Tx count: {txCount}</div>
+      <div>{address}</div>
+      <div>Code</div>
+      <div>
         <textarea value={code} />
+      </div>
     </div>
-  </div>
   );
 }
 

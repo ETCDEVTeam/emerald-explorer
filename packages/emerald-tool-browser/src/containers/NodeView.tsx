@@ -1,36 +1,16 @@
 import * as React from 'react';
-import { match } from 'react-router';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { AppState } from '../store/types';
-import { Node } from '../store/nodes/model';
 import BlockList from './BlockList';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { EthRpc } from 'emerald-js-ui';
 
 interface Props {
-  node: Node;
+  history: { goBack: () => any };
 }
 
-function NodeView(props: Props) {
-  const to = props.node.blockNumber!;
-  const from = to - 15;
+export default function NodeView(props: any) {
+  const { history } = props;
   return (
-    <div>
-      <Breadcrumbs />
-      <div><Link to={`/node/${props.node.id}/contracts`}>Contracts</Link></div>
-      <div>Node ID: {props.node.id}</div>
-      <div>
-        <BlockList node={props.node} from={from} to={to} />
-      </div>
-    </div>);
+    <EthRpc method="eth.getBlockNumber">
+      {blockNumber => (<BlockList from={Math.max(blockNumber - 15, 0)} to={blockNumber} />)}
+    </EthRpc>
+  );
 }
-
-interface OwnProps {
-  match: match<{ [key: string]: string }>;
-}
-
-const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
-  node: state.nodes.nodes.find(n => n.id === ownProps.match.params.id)
-});
-
-export default connect(mapStateToProps)(NodeView);

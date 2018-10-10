@@ -1,6 +1,15 @@
 import * as React from 'react';
-import { Select, TextField } from 'material-ui';
-import { Card, CardActions, CardContent, Button, MenuItem } from 'material-ui';
+
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../model';
 import { OutputValue } from 'emerald-js/src/contracts';
 
@@ -37,14 +46,13 @@ export interface Props {
 
 class ContractInteract extends React.Component<Props, State> {
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      selectedFunction: '',
-      function: undefined,
-      inputs: [],
-      outputs: [],
-    };
+  state = {
+    selectedFunction: '',
+    function: undefined,
+    inputs: [],
+    outputs: [],
+    value: undefined,
+    gas: undefined
   }
 
   handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +67,7 @@ class ContractInteract extends React.Component<Props, State> {
     });
   }
 
-  handleSelectFuncChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleSelectFuncChange = (event: any) => {
       const { contract } = this.props;
       const functions = contract.abi!;
       const func = functions.find((f) => f.name === event.target.value);

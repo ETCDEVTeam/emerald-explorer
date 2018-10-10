@@ -19,9 +19,10 @@ export interface State {
 }
 
 class DeployContractWizard extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {};
+  state = {
+    signedTx: undefined,
+    tx: undefined,
+    txHash: undefined
   }
 
   createSignedTx = (txData: {nonce: number, data: string, gas: number, gasPrice: number}, privKey: string) => {

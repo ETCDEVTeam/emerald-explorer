@@ -1,52 +1,26 @@
 import * as React from 'react';
 import { BlockWithoutTxData } from 'emerald-js';
-import { Node } from '../store/nodes/model';
 import { BlockList } from 'emerald-tool';
+import { EthRpc } from 'emerald-js-ui';
 
 interface Props {
-  node: Node;
   from: number;
   to: number;
 }
 
-interface State {
-  blocks: Array<BlockWithoutTxData>;
-}
+interface State {}
 
 class BlockListContainer extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      blocks: []
-    };
-  }
-
-  async componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.from !== this.props.from || nextProps.to !== this.props.to) {
-      const blocks = await this.props.node.rpc!.ext.getBlocks(nextProps.from, nextProps.to);
-      this.setState({
-        blocks: blocks
-      });
-    }
-  }
-
-  async componentWillMount() {
-    const { node, from, to } = this.props;
-    const blocks = await  node.rpc!.ext.getBlocks(from, to);
-    this.setState({
-      blocks: blocks
-    });
-  }
-
   render() {
-    const { blocks } = this.state;
-    const { node, from, to } = this.props;
+    const { from, to } = this.props;
     return (
       <div>
-        Blocks from {from} to {to}
-        <BlockList blocks={blocks} nodeId={node.id!}/>
-      </div>); 
+      Blocks from {from} to {to}
+      <EthRpc method="ext.getBlocks" params={[this.props.from, this.props.to]}>
+        {blocks => (<BlockList blocks={blocks} />)}
+      </EthRpc>
+      </div>
+    );
   }
 }
 

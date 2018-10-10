@@ -1,9 +1,11 @@
 import * as React from 'react';
-import Button from 'material-ui/Button';
-import Card, { CardActions, CardHeader, CardContent } from 'material-ui/Card';
-import TexField from 'material-ui/TextField';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
 import { required, address as isAddress, isJson } from '../validators';
-import TextField from 'material-ui/TextField';
 
 export interface AddContractProps {
   onDeployNewContract: () => void;
@@ -20,11 +22,6 @@ class AddContract extends React.Component<AddContractProps, AddContractState> {
 
   constructor(props: AddContractProps) {
     super(props);
-    this.state = {
-      name: '',
-      address: '',
-      abi: '',
-    };
   }
 
   handleSubmit = () => {
