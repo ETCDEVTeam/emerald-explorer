@@ -17,7 +17,7 @@ import Back from 'emerald-js-ui/lib/icons3/Back';
 import { AppBar, NetworkSelector, EmeraldProvider } from 'emerald-js-ui';
 
 const routes = [
-  { path: '/', component: Dashboard, title: 'Dashboard', exact: true },
+  { path: '/', component: NodeView, title: 'Latest Blocks', exact: true },
   // { path: '/contracts/deploy', component: DeployContract, title: 'Deploy Contract' },
   // { path: '/contracts/:address', component: Contract, title: 'Contract' },
   // { path: '/contracts', component: ContractList, title: 'Display Contract' },
@@ -30,7 +30,7 @@ const routes = [
 class App extends React.Component {
   render() {
     return (
-      <EmeraldProvider>
+      <EmeraldProvider ethUrl="http://localhost:8545">
         <div>
           <div>
             <AppBar title="Emerald" subtitle="Tool">
