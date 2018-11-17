@@ -33,7 +33,7 @@ class App extends React.Component {
       <EmeraldProvider ethUrl="http://localhost:8545">
         <div>
           <div>
-            <AppBar title="Emerald" subtitle="Tool">
+            <AppBar title="Emerald" subtitle="Explorer">
               <NetworkSelector />
             </AppBar>
           </div>
