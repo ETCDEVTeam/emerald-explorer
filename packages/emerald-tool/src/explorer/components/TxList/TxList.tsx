@@ -29,9 +29,11 @@ function TxListItem({ tx }: { tx: Transaction }) {
       </TableCell>
 
       <TableCell>
-        <Link to={`/address/${tx.to}`}>
-          <Account address={tx.to} identity />
-        </Link>
+        {tx.to !== null ?
+          <Link to={`/address/${tx.to}`}>
+            <Account address={tx.to} identity />
+          </Link>
+        : null}
       </TableCell>
 
       <TableCell>{tx.transactionIndex}</TableCell>

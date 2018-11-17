@@ -60,7 +60,12 @@ function renderTxTable(tx: Transaction, receipt: TransactionReceipt | null) {
 
           <TableRow>
             <TableCell>To</TableCell>
-            <TableCell><Link to={`/address/${tx.to}`}>{tx.to}</Link></TableCell>
+            <TableCell>
+              {tx.to !== null ?
+               <Link to={`/address/${tx.to}`}>{tx.to}</Link>
+               : null
+              }
+            </TableCell>
           </TableRow>
 
           <TableRow>
@@ -151,12 +156,12 @@ function renderTxTable(tx: Transaction, receipt: TransactionReceipt | null) {
            </TableRow>
 
            <TableRow>
-             <TableCell>ConTableRowact Address</TableCell>
+             <TableCell>Contract Address</TableCell>
              <TableCell>{receipt.contractAddress}</TableCell>
            </TableRow>
 
            <TableRow>
-             <TableCell>TableRowansactionIndex</TableCell>
+             <TableCell>Transaction Index</TableCell>
              <TableCell>{receipt.transactionIndex}</TableCell>
            </TableRow>
 
@@ -184,25 +189,7 @@ function TxView(props: TxViewProps) {
     return null;
   }
 
-  return (
-    <div>
-      <div>
-        {renderTxTable(tx, receipt)}
-      </div>
-      <div>
-        <div>
-          <textarea>
-            {JSON.stringify(tx)}
-          </textarea>
-        </div>
-        <div>
-          <textarea>
-            {JSON.stringify(receipt)}
-          </textarea>
-        </div>
-      </div>
-    </div>
-  );
+  return renderTxTable(tx, receipt);
 }
 
 export default TxView;
