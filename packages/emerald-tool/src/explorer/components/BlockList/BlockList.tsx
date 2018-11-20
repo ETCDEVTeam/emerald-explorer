@@ -14,6 +14,9 @@ export interface BlockListProps {
 }
 
 function BlockList({ blocks }: BlockListProps) {
+  const sortedBlocks = blocks.sort((_a, _b) => {
+    return _a.number - _b.number;
+  })
   return (
     <Table>
       <TableHead>
@@ -25,7 +28,7 @@ function BlockList({ blocks }: BlockListProps) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {blocks.map(b => {
+        {sortedBlocks.map(b => {
            return (
              <TableRow key={b.number!}>
                <TableCell component="th" scope="row"><Typography>{b.number}</Typography></TableCell>
