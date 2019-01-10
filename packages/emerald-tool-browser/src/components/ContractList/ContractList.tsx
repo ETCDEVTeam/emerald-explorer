@@ -1,8 +1,17 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import Table, { TableBody, TableHead, TableRow, TableCell } from 'material-ui/Table';
-import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+
+import Avatar from '@material-ui/core/Avatar';
+
 import { Node } from '../../store/nodes/model';
 import { Contract } from '../../store/contracts/model';
 

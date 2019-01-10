@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, Store } from 'redux';
 import { createLogger } from 'redux-logger';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
@@ -9,7 +9,7 @@ import { AppState } from './types';
 import nodes from './nodes';
 import contracts from './contracts';
 
-export const history = createBrowserHistory();
+export const history = createHashHistory();
 
 // Build the middleware for intercepting and dispatching navigation actions
 const router = routerMiddleware(history);
