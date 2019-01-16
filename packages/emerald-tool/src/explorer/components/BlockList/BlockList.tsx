@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { BlockWithoutTxData } from 'emerald-js';
+import { BlockWithoutTxData } from '@emeraldplatform/emerald-js';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

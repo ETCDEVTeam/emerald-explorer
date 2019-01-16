@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Transaction } from 'emerald-js';
-import { Account, Address } from 'emerald-js-ui';
+import { Transaction } from '@emeraldplatform/emerald-js';
+import { Account, Address } from '@emeraldplatform/ui';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

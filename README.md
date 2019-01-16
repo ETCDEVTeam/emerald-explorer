@@ -9,10 +9,19 @@ to install all JS dependencies.
 
     $ lerna bootstrap
 
+Build and start browser version
 
-`yarn build:browser`
+```
+yarn build:browser
+```
+```
+yarn start:browser
+```
+# Development
 
-`yarn start:browser`
+## Tests
+
+`yarn test`
 
 # Packages
 

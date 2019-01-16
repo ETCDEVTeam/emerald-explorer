@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BlockWithoutTxData } from 'emerald-js';
+import { BlockWithoutTxData } from '@emeraldplatform/emerald-js';
 import { BlockList } from 'emerald-tool';
-import { EthRpc } from 'emerald-js-ui';
+import { EthRpc } from '@emeraldplatform/ui';
 
 interface Props {
   from: number;

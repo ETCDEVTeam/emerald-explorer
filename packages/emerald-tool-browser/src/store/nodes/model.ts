@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { EthRpc } from 'emerald-js';
+import { EthRpc } from '@emeraldplatform/emerald-js';
 
 export type Node = {
     url: string;            // remote RPC endpoint

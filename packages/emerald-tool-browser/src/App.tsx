@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { Switch, Route } from 'react-router';
 
 import Dashboard from './containers/Dashboard';
@@ -10,11 +10,8 @@ import Address from './containers/Address';
 import Transaction from './containers/Transaction';
 
 import { history } from './store';
-
-import Page from 'emerald-js-ui/lib/components/Page';
-import Back from 'emerald-js-ui/lib/icons3/Back';
-
-import { AppBar, NetworkSelector, EmeraldProvider } from 'emerald-js-ui';
+import { Page, icons } from '@emeraldplatform/ui';
+import { AppBar, NetworkSelector, EmeraldProvider } from '@emeraldplatform/ui';
 
 const routes = [
   { path: '/', component: NodeView, title: 'Latest Blocks', exact: true },
@@ -43,7 +40,7 @@ class App extends React.Component {
                 {
                   routes.map((routeProps, i) => {
                     var wrapped = (props) => (
-                      <Page title={routeProps.title} leftIcon={<Back onClick={history.goBack} />}>
+                      <Page title={routeProps.title} leftIcon={<icons.Back onClick={history.goBack} />}>
                         {routeProps.component({ ...props, history })}
                       </Page>
                     );

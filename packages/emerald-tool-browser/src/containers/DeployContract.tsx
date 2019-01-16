@@ -6,7 +6,7 @@ import { Node } from '../store/nodes/model';
 import { DeployContractWizard } from 'emerald-tool';
 
 interface Props {
-  node: Node;
+  node?: Node;
 }
 
 class DeployContractContainer extends React.PureComponent<Props> {
@@ -26,7 +26,7 @@ class DeployContractContainer extends React.PureComponent<Props> {
 
   broadcastTx = (signedRawTx: string): Promise<string> => {
     const { node } = this.props;
-    return node.rpc!.eth.sendRawTransaction(signedRawTx);
+    return node!.rpc!.eth.sendRawTransaction(signedRawTx);
   }
 
   render() {
@@ -39,7 +39,7 @@ class DeployContractContainer extends React.PureComponent<Props> {
         onGetAccountNonce={this.getAccountNonce}
         gasPrice={gasPrice}
         onSendTx={this.broadcastTx}
-        chainId={node.chainId}
+        chainId={node!.chainId}
       />
       </React.Fragment>
     );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Page } from 'emerald-js-ui';
+import { Page } from '@emeraldplatform/ui';
 
 function Dashboard(props: any) {
   return (

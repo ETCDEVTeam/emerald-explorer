@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Wallet } from 'emerald-js';
+import { Wallet } from '@emeraldplatform/emerald-js';
 import CreateDeployTx from './CreateDeployTx';
 import SignedDeployTx from './SignedDeployTx';
 

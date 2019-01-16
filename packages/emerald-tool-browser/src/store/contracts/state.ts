@@ -1,21 +1,16 @@
-import { Record } from 'immutable';
 import { Contract } from './model';
 
-type StateParams = {
+export interface IState {
   contracts: Array<Contract>;
   loading: boolean;
 };
 
-const defaultValues: StateParams = {
-  contracts: [],
-  loading: false,
-};
-
-export class State extends Record(defaultValues) {
+export class State implements IState {
   contracts: Array<Contract>;
   loading: boolean;
 
   constructor() {
-    super(defaultValues);
+      this.contracts = [];
+      this.loading = false;
   }
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import BlockList from './BlockList';
-import { EthRpc } from 'emerald-js-ui';
+import { EthRpc } from '@emeraldplatform/ui';
 
 interface Props {
   history: { goBack: () => any };

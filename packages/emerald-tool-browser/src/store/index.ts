@@ -1,7 +1,7 @@
-import { createStore, combineReducers, applyMiddleware, Store } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history';
-import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
 import { AppState } from './types';
@@ -9,12 +9,10 @@ import { AppState } from './types';
 import nodes from './nodes';
 import contracts from './contracts';
 
-export const history = createBrowserHistory();
+export const history = createBrowserHistory()
 
-// Build the middleware for intercepting and dispatching navigation actions
-const router = routerMiddleware(history);
-
-const rootReducer = combineReducers<AppState>({
+const rootReducer = combineReducers({
+  router: connectRouter(history),
   nodes: nodes.reducer,
   contracts: contracts.reducer,
 });
@@ -23,9 +21,11 @@ const loggerMiddleware = createLogger({
   stateTransformer: (state: AppState) => state,
 });
 
-const store: Store<AppState> = createStore<AppState>(
+
+const store = createStore(
   rootReducer,
-  applyMiddleware(loggerMiddleware, router, thunk)
+  applyMiddleware(loggerMiddleware, routerMiddleware(history), thunk),
 );
+
 
 export default store;

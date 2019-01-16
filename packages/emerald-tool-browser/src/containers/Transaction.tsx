@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Transaction, TransactionReceipt } from 'emerald-js';
+import { Transaction, TransactionReceipt } from '@emeraldplatform/emerald-js';
 import { TxView } from 'emerald-tool';
-import { EthRpc } from 'emerald-js-ui';
+import { EthRpc } from '@emeraldplatform/ui';
 
 export default function TransactionContainer(props: any) {
   const {hash} = props.match.params;
