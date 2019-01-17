@@ -10,29 +10,29 @@ import * as actions from '../store/contracts/actions';
 import { history } from '../store';
 import CompileSolidity from './CompileSolidity';
 
-interface ContractListContainerProps {
+interface IProps {
   navigation: Navigation;
-  node: Node;
+  node?: Node;
   contracts: Array<Contract>;
   handleAddContract: (address: string, name: string, abi: string) => void;
 }
 
-class ContractListContainer extends React.Component<ContractListContainerProps> {
+class ContractListContainer extends React.Component<IProps> {
   deployNewContractHandler = () => {
     const { node } = this.props;
-    history.push(`/node/${node.id}/contracts/deploy`);
+    history.push(`/node/${node!.id}/contracts/deploy`);
   }
 
   render() {
     const { node, contracts, handleAddContract } = this.props;
     return (
       <React.Fragment>
-        <ContractList node={node} contracts={contracts} />
+        <ContractList node={node!} contracts={contracts} />
         <AddContract
           onAddContract={handleAddContract}
           onDeployNewContract={this.deployNewContractHandler}
         />
-        <CompileSolidity node={node} />
+        <CompileSolidity node={node!} />
       </React.Fragment>
     );
   }

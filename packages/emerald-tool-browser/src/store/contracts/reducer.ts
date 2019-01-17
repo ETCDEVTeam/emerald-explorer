@@ -56,7 +56,8 @@ function onAddContract(state: State, action: AddContract): State {
       abi: JSON.parse(action.abi),
     };
     state.contracts.push(newContract);
-    return state.set('contracts', state.contracts) as State;
+    
+    return state
   }
   return state;
 }

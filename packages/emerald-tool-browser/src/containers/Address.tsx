@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AddressView } from 'emerald-tool';
-import Wei from 'emerald-js/lib/wei';
-import { EthRpc } from 'emerald-js-ui';
+import { Wei } from '@emeraldplatform/emerald-js';
+import { EthRpc } from '@emeraldplatform/ui';
 
 export default function Address(props: any) {
   const { address } = props.match.params;
@@ -15,7 +15,7 @@ export default function Address(props: any) {
                 <AddressView
                   address={address}
                   txCount={transactionCount}
-                  balance={new Wei(balance || 0).getEther()}
+                  balance={new Wei(balance || 0).getEther(5)}
                   code={code}
                 />
               )}

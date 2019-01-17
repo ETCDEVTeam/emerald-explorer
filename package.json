@@ -1,14 +1,15 @@
 {
-	"name": "emerald-tool",
-	"license": "Apache-2.0",
-	"scripts": {
-		"build:browser": "lerna run build --scope emerald-tool-browser --include-filtered-dependencies --stream",
-		"start:browser": "lerna run --stream start --scope emerald-tool-browser --include-filtered-dependencies",
-		"clean:node_modules": "rimraf node_modules packages/*/node_modules",
-		"test": "CI=true lerna run test --stream"
-	},
-	"devDependencies": {
-		"lerna": "^2.11.0",
-		"rimraf": "^2.6.2"
-	}
+  "name": "emerald-tool",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build:browser": "lerna run build --scope emerald-tool-browser --include-filtered-dependencies --stream",
+    "start:browser": "lerna run --stream start --scope emerald-tool-browser --include-filtered-dependencies",
+    "clean:node_modules": "rimraf node_modules packages/*/node_modules",
+    "test": "CI=true lerna run test --stream"
+  },
+  "devDependencies": {
+    "lerna": "^3.10.5",
+    "rimraf": "^2.6.2",
+    "typescript": "^3.2.2"
+  }
 }

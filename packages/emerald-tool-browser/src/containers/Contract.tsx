@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { Redirect } from 'react-router';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { match } from 'react-router';
 import { AppState } from '../store/types';
 import { Node } from '../store/nodes/model';
 import { Contract, AbiFunction } from '../store/contracts/model';
 import { ContractView } from 'emerald-tool';
-import { EthRpc, contracts } from 'emerald-js';
-import { OutputValue, InputValues } from 'emerald-js/src/contracts';
+import { EthRpc, contracts } from '@emeraldplatform/emerald-js';
 
-interface ContractContainerProps {
-  node: Node;
-  contract: Contract;
+export interface IProps {
+  node?: Node;
+  contract?: Contract;
 }
 
 /**
@@ -19,8 +18,8 @@ interface ContractContainerProps {
  * Result of eth_call should be the return value of executed contract.
  */
 export async function callContract(
-  rpc: EthRpc, contractAddress: string, func: AbiFunction, inputs: {}): Promise<OutputValue[]> {
-  const data = contracts.functionToData(func, inputs as InputValues);
+  rpc: EthRpc, contractAddress: string, func: AbiFunction, inputs: {}): Promise<contracts.OutputValue[]> {
+  const data = contracts.functionToData(func, inputs as contracts.InputValues);
   const result = await rpc.eth.call({ to: contractAddress, data });
   console.log('eth_call result: ' + JSON.stringify(result));
   return contracts.dataToParams(func, result);
@@ -29,10 +28,10 @@ export async function callContract(
 /**
  * Display contract info and handles calls to contract's methods
  */
-class ContractContainer extends React.Component<ContractContainerProps> {
+class ContractContainer extends React.Component<IProps> {
 
   handleContractCall = (address: string, func: AbiFunction, inputs: {}) => {
-    return callContract(this.props.node.rpc!, address, func, inputs);
+    return callContract(this.props.node!.rpc!, address, func, inputs);
   }
 
   render() {
@@ -44,7 +43,7 @@ class ContractContainer extends React.Component<ContractContainerProps> {
         />
       );
     }
-    return (<Redirect to={`/node/${this.props.node.id}/contracts`}/>);
+    return (<Redirect to={`/node/${this.props.node!.id}/contracts`}/>);
   }
 
 }
@@ -58,9 +57,5 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   contract: state.contracts.contracts.find((c) => c.address === ownProps.match.params.address),
 });
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-  };
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContractContainer);
+export default connect(mapStateToProps)(ContractContainer);

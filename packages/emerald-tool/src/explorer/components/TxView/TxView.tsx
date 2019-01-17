@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Transaction, TransactionReceipt } from 'emerald-js';
+import { Transaction, TransactionReceipt } from '@emeraldplatform/emerald-js';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

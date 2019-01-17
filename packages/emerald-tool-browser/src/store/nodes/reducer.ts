@@ -1,4 +1,4 @@
-import { EthRpc, JsonRpc, HttpTransport } from 'emerald-js';
+import { EthRpc, JsonRpc, HttpTransport } from '@emeraldplatform/emerald-js';
 import { Node } from './model';
 import { NodesAction, UpdateNodeStatus, UpdateNodeStatusError } from './actions';
 import { UPDATE_NODE_STATUS, UPDATE_NODE_STATUS_ERROR } from './constants';
@@ -61,7 +61,7 @@ function onUpdateNodeStatusError(state: State, action: UpdateNodeStatusError): S
   return { ...state, nodes };
 }
 
-export default function reduce(state: State, action: NodesAction) {
+export default function reduce(state: State|undefined, action: NodesAction): State {
   state = state || initialState;
   switch (action.type) {
     case UPDATE_NODE_STATUS:

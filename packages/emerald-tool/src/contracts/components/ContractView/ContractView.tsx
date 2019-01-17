@@ -5,13 +5,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import { OutputValue } from 'emerald-js/src/contracts';
+import { contracts } from '@emeraldplatform/emerald-js';
 import ContractInteract from '../ContractInteract';
 import { Contract, AbiFunction } from '../../model';
 
 export interface Props {
   contract: Contract;
-  onContractCall?: (contractAddress: string, func: AbiFunction, inputs: {}) => Promise<OutputValue[]>;
+  onContractCall?: (contractAddress: string, func: AbiFunction, inputs: {}) => Promise<contracts.OutputValue[]>;
 }
 
 function ContractView(props: Props) {

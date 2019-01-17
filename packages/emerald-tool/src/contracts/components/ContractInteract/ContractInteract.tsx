@@ -1,17 +1,15 @@
 import * as React from 'react';
-
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
-
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import MenuItem from '@material-ui/core/MenuItem';
+import { contracts } from '@emeraldplatform/emerald-js';
 
 import { Contract, AbiFunction, AbiFunctionInput, AbiFunctionOutput } from '../../model';
-import { OutputValue } from 'emerald-js/src/contracts';
 
 export interface AbiFunctionInputValue {
   value?: string;
@@ -41,7 +39,7 @@ export interface Props {
   /**
    * This handler should eth_call smart contract's method
    */
-  onCall?: (contractAddress: string, func: AbiFunction, inputs: {}) => Promise<OutputValue[]>;
+  onCall?: (contractAddress: string, func: AbiFunction, inputs: {}) => Promise<contracts.OutputValue[]>;
 }
 
 class ContractInteract extends React.Component<Props, State> {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { BlockWithTxData } from 'emerald-js';
-import { Account } from 'emerald-js-ui';
+import { BlockWithTxData } from '@emeraldplatform/emerald-js';
+import { Account } from '@emeraldplatform/ui';
 import TxList from '../TxList';
 
 import Table from '@material-ui/core/Table';

@@ -3,7 +3,7 @@ import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import { Wallet } from 'emerald-js';
+import { Wallet } from '@emeraldplatform/emerald-js';
 
 export interface Props {
   onEstimateGas?: (callData: {from: string, data: string, gas: number}) => Promise<number>;

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BlockWithTxData } from 'emerald-js';
+import { BlockWithTxData } from '@emeraldplatform/emerald-js';
 import { BlockView } from 'emerald-tool';
-import { EthRpc } from 'emerald-js-ui';
+import { EthRpc } from '@emeraldplatform/ui';
 
 export default function Block(props: any) {
   const { history: { goBack }, match: { params: { hash } } } = props;

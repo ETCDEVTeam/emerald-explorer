@@ -17,7 +17,7 @@ function renderGeneral(props: AddressViewProps) {
       <div>{address}</div>
       <div>Code</div>
       <div>
-        <textarea value={code} />
+        <textarea value={code} readOnly/>
       </div>
     </div>
   );
